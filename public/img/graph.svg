@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: SketchAPI 4.1.465 <https://api.sketch.io/> -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketchjs="https://sketch.io/dtd/" sketchjs:metadata="eyJ0aXRsZSI6IkRyYXdpbmciLCJkZXNjcmlwdGlvbiI6Im1hZGUgd2l0aCBTa2V0Y2hwYWQgLSBodHRwczovL3NrZXRjaC5pby9za2V0Y2hwYWQiLCJtZXRhZGF0YSI6e30sImNsaXAiOnsiZW5hYmxlZCI6dHJ1ZSwic3R5bGUiOnsic3Ryb2tlU3R5bGUiOiJibGFjayIsInNoYWRvd0NvbG9yIjoicmdiYSgyNTUsMjU1LDI1NSwwLjE1KSIsInNoYWRvd0JsdXIiOjEsImxpbmVXaWR0aCI6Mn19LCJleHBvcnREUEkiOjcyLCJleHBvcnRGb3JtYXQiOiJwbmciLCJleHBvcnRRdWFsaXR5IjowLjk1LCJ1bml0cyI6IiUiLCJ3aWR0aCI6MTAwLCJoZWlnaHQiOjEwMCwic2NhbGUiOjEsInBhZ2VzIjp7Imxlbmd0aCI6MSwiZGF0YSI6W3sid2lkdGgiOjEwMCwiaGVpZ2h0IjoxMDB9XX19" sketchjs:version="4.1.465">
+<g sketchjs:tool="rectangle" style="fill: none; mix-blend-mode: source-over; opacity: NaN;">
+	<path id="ec09e40b_x2d43ba_x2d4ccd_x2da254_x2df863617853b5" style="vector-effect: non-scaling-stroke;" d="M0 -315.5 L1375 -315.5 1375 1059.5 0 1059.5 z"/>
+	<use xlink:href="#ec09e40b_x2d43ba_x2d4ccd_x2da254_x2df863617853b5"/>
+	<use xlink:href="#ec09e40b_x2d43ba_x2d4ccd_x2da254_x2df863617853b5" style="fill: white; fill-opacity: 1;"/>
+</g>
+<g sketchjs:tool="path" style="fill: none; mix-blend-mode: source-over;" transform="matrix(1,0,0,1,157,71)">
+	<path id="4e5b74b7_x2d7972_x2d44d8_x2d9952_x2d297579399bb9" style="vector-effect: non-scaling-stroke;" d="M0 0 L0 574 0 574 "/>
+	<use xlink:href="#4e5b74b7_x2d7972_x2d44d8_x2d9952_x2d297579399bb9" style="stroke: black; stroke-dasharray: none; stroke-dashoffset: 0; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 4.58;"/>
+	<use xlink:href="#4e5b74b7_x2d7972_x2d44d8_x2d9952_x2d297579399bb9"/>
+</g>
+<g sketchjs:tool="path" style="fill: none; mix-blend-mode: source-over;" transform="matrix(0.9956140350877193,0,0,0.9956140350877193,156.99561403508767,643)">
+	<path id="5b65ad8b_x2d696a_x2d4d9c_x2da090_x2dc2993ece2a60" style="vector-effect: non-scaling-stroke;" d="M0 0 L911 5 911 5 "/>
+	<use xlink:href="#5b65ad8b_x2d696a_x2d4d9c_x2da090_x2dc2993ece2a60" style="stroke: black; stroke-dasharray: none; stroke-dashoffset: 0; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 4.58;"/>
+	<use xlink:href="#5b65ad8b_x2d696a_x2d4d9c_x2da090_x2dc2993ece2a60"/>
+</g>
+<g sketchjs:tool="path" style="fill: none; mix-blend-mode: source-over;" transform="matrix(1,0,0,1,157,527)">
+	<path id="8d9410de_x2d2e85_x2d481b_x2dbe78_x2d2d6308e88c39" style="vector-effect: non-scaling-stroke;" d="M0 113 L83 53 905 2 907 0 "/>
+	<use xlink:href="#8d9410de_x2d2e85_x2d481b_x2dbe78_x2d2d6308e88c39" style="stroke: black; stroke-dasharray: none; stroke-dashoffset: 0; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 4.58;"/>
+	<use xlink:href="#8d9410de_x2d2e85_x2d481b_x2dbe78_x2d2d6308e88c39"/>
+</g>
+<g sketchjs:tool="path" style="fill: none; mix-blend-mode: source-over;" transform="matrix(1,0,0,1,158,126)">
+	<path id="a52be655_x2d292f_x2d4487_x2d845d_x2db5f88ca7098c" style="vector-effect: non-scaling-stroke;" d="M0 514 L198 505 469 472 688 358 911 1 913 0 "/>
+	<use xlink:href="#a52be655_x2d292f_x2d4487_x2d845d_x2db5f88ca7098c" style="stroke: #074dff; stroke-dasharray: none; stroke-dashoffset: 0; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 4.58;"/>
+	<use xlink:href="#a52be655_x2d292f_x2d4487_x2d845d_x2db5f88ca7098c"/>
+</g>
+</svg>

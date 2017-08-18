@@ -5,6 +5,7 @@ body, html {
   max-width: 100%;
   min-height: 100%;
   transition:0.2s all ease;
+  overflow-x:hidden;
 }
 a {
   color: #0012ff;

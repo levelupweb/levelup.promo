@@ -1,3 +1,12 @@
+.logo {
+	position:absolute;
+	left:40px;
+	top:40px;
+
+}
+.logo img {
+	width:62px;
+}
 .jumbotron {
 	width:100%;
 }
@@ -5,6 +14,9 @@
 .jumbotron-title img {
 	display:inline;
 	vertical-align: middle;
+}
+.jumbotron-title span.primary {
+	border-bottom:1px solid #fff!important;
 }
 .jumbotron-title img {
 	margin-right:15px;
@@ -29,6 +41,43 @@
 .jumbotron-actions {
 	margin-top:30px;
 }
+.intro-example {
+	position: relative;
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: space-around;
+	align-items: stretch;
+	margin:40px 0;
+}
+.intro-example .item {
+	max-width:25%;
+	margin-bottom:40px;
+	position: relative;
+	border-radius:8px;
+}
+.intro-example .item:after {
+	content :'';
+	background: #0012ff;
+	width:100px;
+	height:1px;
+	position: absolute;
+	left:100%;
+	margin-left:-55px;
+	top:46px;
+}
+.intro-example .item:last-child:after {
+	display:none;
+}
+.intro-example.three .item {
+	max-width:33%;
+}
+.intro-example .item > * {
+	padding:0 20px;
+}
+.intro-example .item img {
+	width:65px;
+	margin-top:20px;
+}
 .stages {
 	display:flex;
 	justify-content: center;
@@ -38,7 +87,7 @@
 }
 .stages .stage {
 	position: relative;
-	border:1px solid #000;
+	border:1px solid #0012ff;
 	width:60px;
 	height:60px;
 	border-radius:100%;
@@ -77,7 +126,6 @@
 }
 .stages .stage.primary {
 	background:#0012ff;
-	border:1px solid #fff;
 }
 .stages .stage.primary .count {
 	color:#fff;
@@ -92,6 +140,17 @@
 	width:48%;
 	text-align:left;
 	margin-bottom:25px;
+	border-radius:7px;
+	position: relative;
+}
+.advantage:before {
+	content: '';
+	position: absolute;
+	left:120px;
+	top:60px;
+	width:100px;
+	height:1px;
+	background: #0012ff;
 }
 .advantage .advantage-title {
 	margin-top:0px;
@@ -103,7 +162,62 @@
 	padding-top:25px;
 	margin-bottom:15px;
 }
+.advantage .advantage-image img {
+	width:70px;
+	margin:auto;
+}
 .advantage .advantage-description {
 	padding-bottom:25px;
 }
-
+.positions {
+	display:flex;
+	justify-content: space-around;
+	align-items:center;
+}
+.positions .position {
+	text-align:left;
+	max-width:48%;
+}
+.positions .position .position-header {
+	display:flex;
+	align-items:center;
+}
+.positions .position .position-header img {
+	width:60px;
+}
+.positions .position .position-header .position-price {
+	margin-left:20px;
+}
+section.second {
+	background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);	
+}
+section.fifth {
+	background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);	
+}
+.fifth .graph {
+	position:relative;
+	margin:40px 0;
+}
+.fifth .graph .x-axis {
+	position: absolute;
+	right:65px;
+	bottom:20px;
+}
+.fifth .graph .y-axis {
+	position: absolute;
+	left: 0px;
+  top: 85px;
+  margin-left: -42px;
+	transform: rotate(90deg);
+}
+section.seventh {
+	background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+ background-blend-mode: multiply;
+}
+section.ten {
+	background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+}
+section.footer {
+	background:#111;
+	border-bottom:0;
+}

@@ -11,7 +11,7 @@ export default class Header extends Component {
 	}
 
 	revealNavigation() {
-		document.querySelector('.container-content').classList.toggle('blured')
+		document.querySelector('.site-content').classList.toggle('blured')
 		this.setState({
 			revealed: !this.state.revealed
 		})
