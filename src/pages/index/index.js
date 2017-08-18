@@ -8,16 +8,16 @@ import mailTemplate from './mail.js';
 import 'react-notifications/lib/notifications.css';
 import "./index.css";
 
-const secret_key = "8gia89fianfiajsf";
-
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
+		const { secret, mailsendurl } = this.props.configuration;
 		this.mail = new Mail(
-			secret_key, 
+			secret, 
 			'Иван из Levelup Worlds', 
 			'beatzhitta@gmail.com', 
-			'Новая заявка на сайте Levelup.Promo'
+			'Новая заявка на сайте Levelup.Promo',
+			mailsendurl
 		);
 		this.state = {
 			message: {}

@@ -15,9 +15,18 @@
 .list.horizontal {
 	display:flex;
 	justify-content:space-around;
+	flex-wrap:wrap;
 	align-items:center;
 	margin:30px 0px;
 }
+@media screen and (max-width: 576px) {
+	.list.horizontal {
+		flex-direction: row;
+	}
+	.list.horizontal .item {
+		width:50%;
+	}
+} 
 .list.horizontal .item {
 }
 .list.horizontal .item img {
@@ -32,6 +41,15 @@
 	width:100%;
 	position: relative;
 	padding-left:40px;
+}
+@media screen and (max-width:576px) {
+	.list.wide .item {
+		padding-left:0px;
+	}
+	.list.wide .item:after,
+	.list.wide .item:before {
+		display:none;
+	}
 }
 .list.wide .item:first-child .super {
 	margin-top:0px;

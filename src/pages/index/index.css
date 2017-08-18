@@ -84,6 +84,11 @@
 .intro-example.three .item {
 	max-width:33%;
 }
+@media screen and (max-width:576px) {
+	.intro-example.three .item {
+		max-width:100%;
+	}
+}
 .intro-example .item > * {
 	padding:0 20px;
 }
@@ -98,25 +103,25 @@
 	width:100%;
 	margin-bottom:50px;
 }
-@media screen and (max-width:576px) {
+@media screen and (max-width:696px) {
 	.stages {
 		flex-direction:column;
 	}
 	.stages .stage {
 		margin-left:0px!important;
-		margin-top:80px;
+		margin-top:40px;
 		width:150px!important;
 		height:150px!important;
 	}
 	.stages .stage:before {
-		display:none;
+		
 	}
 	.stages .stage .count {
 		font-size:20px;
 	}
 	.stages .stage .title {
 		position: absolute;
-    left: -140px!important;
+    left: -150px!important;
     margin-right:0!important;
     top: 50%!important;
     margin-top: -25px!important;
@@ -126,6 +131,15 @@
     justify-content: center;
     font-weight: bold;
     font-size:25px;
+	}
+}
+@media screen and (max-width:408px) { 
+	.stages .stage .title {
+		left: -100px!important;
+	}
+	.stages .stage {
+		width:100px!important;
+		height:100px!important;
 	}
 }
 .stages .stage {
@@ -221,6 +235,7 @@
 	display:flex;
 	justify-content: space-around;
 	align-items:center;
+	flex-wrap:wrap;
 }
 .positions .position {
 	text-align:left;
@@ -228,7 +243,8 @@
 }
 @media screen and (max-width:576px) {
 	.positions .position {
-		width:100%;
+		max-width:100%;
+		margin-bottom:20px;
 	}
 }
 .positions .position .position-header {
@@ -246,6 +262,11 @@ section.second {
 }
 section.fifth {
 	background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);	
+}
+@media screen and (max-width:663px) {
+	section.fifth {
+		display:none;
+	}
 }
 .fifth .graph {
 	position:relative;

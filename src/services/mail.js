@@ -1,16 +1,17 @@
 import axios from "axios";
 
 class Mail {
-	constructor(token, who, to, subject) {
+	constructor(token, who, to, subject, url) {
 		this.token = token;
 		this.who = who;
 		this.to = to;
 		this.subject = subject;
+		this.url = url;
 	}
 	send(html) {
 		return axios({
 			method: "POST",
-			url: "http://185.22.232.114:3080/send",
+			url: this.url,
 			headers: {
 				"x-access-token": this.token 
 			},

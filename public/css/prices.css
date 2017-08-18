@@ -7,6 +7,23 @@
   padding:50px auto;
   margin-bottom:100px;
 }
+@media screen and (max-width:866px) {
+  .promos {
+    flex-direction:column;
+  }
+  .promo.left {
+    margin-right:0px!important;
+  }
+  .promo.right {
+    margin-left:0px!important;
+  }
+  .promo.scale {
+    position: static;
+  }
+  .promos .promo {
+    width:100%;
+  }
+}
 .promo {
   margin: 1em .5em 1.625em;
   padding: .25em 0 2em;
@@ -63,6 +80,9 @@
   color: #000;
   position: relative;
 }
+.promo.scale .price {
+  color: #0012ff;
+}
 .promo .price:after {
   content:'';
   position: absolute;
@@ -79,16 +99,10 @@
   margin: 1em 0 0;
 }
 .scale {
+  transform: scale(1.09);
+  position: absolute;
+  z-index:900;
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   width:300px;  
 }
-@media (min-width: 40em) {
-  .scale {
-    transform: scale(1.09);
-    position: absolute;
-    z-index:900;
-  }
-  .scale .price {
-    color: #0012ff;
-  }
-}
+

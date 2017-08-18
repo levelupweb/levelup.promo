@@ -1,1 +1,1 @@
-# Levelup Boilerplate for Static WebSites
+# Levelup Promo Landing

@@ -7,7 +7,7 @@ p.primary {
 }
 @media screen and (max-width: 768px) {
 	p.primary {
-		font-size:16px;
+		font-size:18px;
 	}
 }
 .spacing {

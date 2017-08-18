@@ -8,7 +8,7 @@ import NoMatch from "../../components/noMatch/NoMatch.js";
 import RouteDefaultContainer from "../../containers/RouteDefaultContainer.js";
 
 const App = props => {
-	const { location } = props;
+	const { location, configuration } = props;
 	return (
 		<div className="App">
 			<SwitchCSSTransitionGroup
@@ -17,7 +17,7 @@ const App = props => {
 				transitionEnterTimeout={600}
 				transitionLeaveTimeout={600}
 			>
-				<RouteDefaultContainer path="/" component={Index} />
+				<RouteDefaultContainer configuration={configuration} path="/" component={Index} />
 				<RouteDefaultContainer component={NoMatch} />
 			</SwitchCSSTransitionGroup>
 		</div>
