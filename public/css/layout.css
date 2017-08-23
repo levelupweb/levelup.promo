@@ -31,12 +31,11 @@ section.fullpage {
 }
 section .section-background {
 	position: absolute; 
-  width: 200%; 
-  max-height:100vh;
-  min-height:100vh;
-  height:100vh;
   overflow:hidden;
   z-index:-10;
+  min-height:100vh;
+  height:100%;
+  width:100%;
 }
 section .section-background img,
 section .section-background .gradient {
@@ -46,17 +45,11 @@ section .section-background .gradient {
   right: 0; 
   bottom: 0; 
   margin: auto; 
+  width: 200%; 
+  max-height:100vh;
+  min-height:100vh;
+  height:100vh;
 } 
-@media screen and (max-width:722px) {
-	section .section-background {
-		width:300%;
-	}
-}
-@media screen and (max-width:487px) {
-	section .section-background {
-		width:400%;
-	}
-}
 section.center {
 	text-align:center;
 	display:flex;

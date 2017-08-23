@@ -543,7 +543,7 @@ const initScrollReveal = (sr) => {
 	});
 	sr.reveal(".jumbotron-actions", {
 		duration: 500,
-		delay: 500,
+		delay: 100,
 		origin: "top"
 	});
 	sr.reveal(".section-title", {
@@ -615,19 +615,21 @@ const initScrollReveal = (sr) => {
 }
 
 const backgroundWrapperMove = () => {
-	const movementStrength = 25;
-	const height = movementStrength / window.innerHeight;
-	const width = movementStrength / window.innerWidth;
-	const area = document.querySelector('section.first');
-	const image = document.querySelector('section.first .section-background img');
-	area.addEventListener('mousemove', (e) => {
-		const pageX = e.pageX - (window.innerWidth / 2);
-    const pageY = e.pageY - (window.innerHeight / 2);
-    const newvalueX = width * pageX * -1 - 25;
-    const newvalueY = height * pageY * -1 - 50;
-    image.style.top = newvalueX+"px";
-    image.style.left = newvalueY+'px'
-	})
+	if (window.innerWidth > 998) {
+		const movementStrength = 25;
+		const height = movementStrength / window.innerHeight;
+		const width = movementStrength / window.innerWidth;
+		const area = document.querySelector('section.first');
+		const image = document.querySelector('section.first .section-background img');
+		area.addEventListener('mousemove', (e) => {
+			const pageX = e.pageX - (window.innerWidth / 2);
+  	 const pageY = e.pageY - (window.innerHeight / 2);
+   	 const newvalueX = width * pageX * -1 - 25;
+  	  const newvalueY = height * pageY * -1 - 50;
+  	  image.style.top = newvalueX+"px";
+  	  image.style.left = newvalueY+'px'
+		})
+	}
 }
 
 const bindSmoothScrolling = () => {

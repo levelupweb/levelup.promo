@@ -45,6 +45,7 @@
 @media screen and (max-width:576px) {
 	.list.wide .item {
 		padding-left:0px;
+		text-align:center;
 	}
 	.list.wide .item:after,
 	.list.wide .item:before {

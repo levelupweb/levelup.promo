@@ -245,6 +245,10 @@
 	.positions .position {
 		max-width:100%;
 		margin-bottom:20px;
+		text-align:center;
+	}
+	.positions .position .position-header {
+		justify-content: center;
 	}
 }
 .positions .position .position-header {
@@ -294,4 +298,9 @@ section.ten {
 section.footer {
 	background:#111;
 	border-bottom:0;
+}
+@media screen and (max-width:576px) {
+	section.footer {
+		font-size:70%;
+	}
 }
