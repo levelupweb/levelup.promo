@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NotificationManager } from 'react-notifications';
 
 class Mail {
 	constructor(token, who, to, subject, url) {
@@ -8,7 +9,8 @@ class Mail {
 		this.subject = subject;
 		this.url = url;
 	}
-	send(html) {
+	dispatchSend(html) {
+		console.log(this.url)
 		return axios({
 			method: "POST",
 			url: this.url,
@@ -19,9 +21,20 @@ class Mail {
 				who: this.who,
 				to: this.to,
 				subject: this.subject,
-				html: html,
+				html,
 			}
-		});
+		}).then((response) => {
+			const { success, message } = response.data;
+			console.log(response)	
+		if(success) {
+				return NotificationManager.success(message, 'Успех');
+			} else {
+				return NotificationManager.error(message, 'Ошибка');
+			}
+		}).catch((err) => {
+			console.log(err)
+			return NotificationManager.error('Ошибка клиента', 'Ошибка');
+		})
 	}
 }
 

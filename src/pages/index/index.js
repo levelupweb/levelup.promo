@@ -4,7 +4,7 @@ import Field from '../../components/field/Field.js';
 import smoothScroll from 'smoothscroll';
 import Mail from '../../services/mail.js';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import mailTemplate from './mail.js';
+import generateMailHTML from './mail.js';
 import 'react-notifications/lib/notifications.css';
 import "./index.css";
 
@@ -13,11 +13,11 @@ class Index extends React.Component {
 		super(props);
 		const { secret, mailsendurl } = this.props.configuration;
 		this.mail = new Mail(
-			secret, 
-			'Иван из Levelup Worlds', 
+			config.mail.secret, 
+			'Иван из Levelup Web', 
 			'beatzhitta@gmail.com', 
-			'Новая заявка на сайте Levelup.Promo',
-			mailsendurl
+			'Новая заявка на сайте Levelup.SMM',
+			config.mail.sendURL
 		);
 		this.state = {
 			message: {}
@@ -28,25 +28,9 @@ class Index extends React.Component {
 		backgroundWrapperMove();
 		bindSmoothScrolling();
 	}
-	handleSubmit(e, html) {
-		e.preventDefault();
-		const { userName, userEmail, userNumber, spamDetection } = this.state.message;
-		if(userName && userEmail && userNumber) {
-			if(!spamDetection) {
-				this.mail.send(html).then((response) => {
-					const { success, message } = response.data;
-					if(success) {
-						return NotificationManager.success(message, 'Успех');
-					} else {
-						return NotificationManager.error(message, 'Ошибка');
-					}
-				})
-			} else {
-				return NotificationManager.error('Извините, вы похожи на бота', 'Ошибка');
-			}
-		} else {
-			return NotificationManager.error('Одно или несколько обязательных полей не были заполнены', 'Ошибка');
-		}
+	submitForm(e, html) {
+		e.preventDefault()
+		this.mail.dispatchSend(html)			
 	}
 	updateMessage = (key, fieldName, value) => {
 		this.setState({
@@ -504,7 +488,7 @@ class Index extends React.Component {
 								<Field fieldName="E-Mail клиента" onInput={this.updateMessage} title="Здесь e-mail" name="userEmail" type="text" />
 								<Field fieldName="Мобильный телефон клиента" onInput={this.updateMessage} title="Здесь ваш мобильный (+7)" name="userNumber" type="text" />
 								<Field fieldName="Сообщение" onInput={this.updateMessage} title="Дополнительное сообщение.. (не обязательно)" name="userMessage" type="textarea" />
-								<input type="submit" className="button" value="Отправить" />
+								<button onClick={(e) => {this.submitForm(e, generateMailHTML(this.state.message))}} type="submit" className="button" value="Отправить" />
 							</form>
 							<p className="primary">После отправки сообщения, наш менеджер свяжется с вами сразу же, как это станет возможным</p>
 						</div>
