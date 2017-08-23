@@ -55,6 +55,7 @@ section.center {
 	align-items:center;
 	justify-content:center;
 	flex-direction:column;
+	padding:0;
 }
 section .section-title {
 	text-align:center;
@@ -81,6 +82,7 @@ section .section-title > * {
 .container {
 	max-width:900px;
 	margin:auto;
+	padding:15px;
 }
 .container.text {
 	max-width:650px;
