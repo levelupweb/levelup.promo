@@ -5,6 +5,7 @@ import smoothScroll from 'smoothscroll';
 import Mail from '../../services/mail.js';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import generateMailHTML from './mail.js';
+import config from '../../config.js';
 import 'react-notifications/lib/notifications.css';
 import "./index.css";
 
@@ -481,7 +482,7 @@ class Index extends React.Component {
 							<div className="description">Заполните форму и мы свяжемся с вами в ближайшее время</div>
 						</div>
 						<div className="section-content">
-							<form onSubmit={(e) => {this.handleSubmit(e, mailTemplate(this.state.message))}} className="fluid" ref={(e) => {this.contactForm = e}}>
+							<form className="fluid">
 								<Field fieldName="spamDetection" onInput={this.updateMessage} defaultValue="" title="Бот?" name="spamDetection" hidden={true} />
 								<Field fieldName="Тема сообщения" onInput={this.updateMessage} defaultValue="Новый заказ" title="Тема сообщения" name="subject" type="hidden" />
 								<Field fieldName="Имя клиента" onInput={this.updateMessage} title="Здесь ваше имя" name="userName" type="text" />
