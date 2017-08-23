@@ -489,7 +489,7 @@ class Index extends React.Component {
 								<Field fieldName="E-Mail клиента" onInput={this.updateMessage} title="Здесь e-mail" name="userEmail" type="text" />
 								<Field fieldName="Мобильный телефон клиента" onInput={this.updateMessage} title="Здесь ваш мобильный (+7)" name="userNumber" type="text" />
 								<Field fieldName="Сообщение" onInput={this.updateMessage} title="Дополнительное сообщение.. (не обязательно)" name="userMessage" type="textarea" />
-								<button onClick={(e) => {this.submitForm(e, generateMailHTML(this.state.message))}} type="submit" className="button"></button>
+								<button onClick={(e) => {this.submitForm(e, generateMailHTML(this.state.message))}} type="submit" className="button">Отправить</button>
 							</form>
 							<p className="primary">После отправки сообщения, наш менеджер свяжется с вами сразу же, как это станет возможным</p>
 						</div>
