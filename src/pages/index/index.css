@@ -2,10 +2,19 @@
 	position:absolute;
 	left:40px;
 	top:40px;
-
 }
 .logo img {
 	width:62px;
+}
+@media screen and (max-width:776px) {
+	.logo {
+		left:20px;
+		top:20px;
+	}
+	.logo img {
+		width:32px;
+		height:32px;
+	}
 }
 .jumbotron {
 	width:100%;
