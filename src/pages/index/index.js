@@ -69,11 +69,11 @@ class Index extends React.Component {
 					</div>
 					<div className="container">
 						<div className="logo">
-							<img src="img/basic-inverted-full-128x128.png" alt="Levelup Promo" />
+							<img src="img/basic-inverted-full-128x128.png" alt="Levelup SMM" />
 						</div>
 						<div className="jumbotron inverted">
 							<div className="jumbotron-title">
-								<h3 className="super title">Levelup <span className="primary">Promo</span></h3>
+								<h3 className="super title">Levelup <span className="primary">SMM</span></h3>
 							</div>
 							<div className="jumbotron-content">
 								<p className="primary">
