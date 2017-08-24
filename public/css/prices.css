@@ -19,6 +19,7 @@
   }
   .promo.scale {
     position: static;
+    margin-left:0;
   }
   .promos .promo {
     width:100%;
@@ -106,5 +107,7 @@
   z-index:900;
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   width:300px;  
+  left:50%;
+  margin-left:-150px;
 }
 

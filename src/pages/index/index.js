@@ -15,8 +15,8 @@ class Index extends React.Component {
 		const { secret, mailsendurl } = this.props.configuration;
 		this.mail = new Mail(
 			config.mail.secret, 
-			'Иван из Levelup Web', 
-			'beatzhitta@gmail.com', 
+			'Дарина из Levelup Worlds', 
+			'hh@levelupworlds.com', 
 			'Новая заявка на сайте Levelup.SMM',
 			config.mail.sendURL
 		);
@@ -186,7 +186,7 @@ class Index extends React.Component {
 										<img src="img/money.png" alt="Деньги" />
 									</div>
 									<h6 className="advantage-title super">
-										Отдать ваши социальные сети в наши руке выйдет дешевле, чем найти штатного работника!
+										Отдать ваши социальные сети в наши руки выйдет дешевле, чем найти штатного работника!
 									</h6>
 									<div className="advantage-description">
 										<p>
@@ -345,7 +345,7 @@ class Index extends React.Component {
 				            <li>Обработка обратной связи</li>
 				            <li>Мониторинг конкурентов</li>
 				            <li>200 клиентов/месяц</li>
-				            <li>3 публикации/неделя</li>
+				            <li>12 публикаций/месяц</li>
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
 					        </ul>
 						    </div>
@@ -361,7 +361,7 @@ class Index extends React.Component {
 				            <li>Обработка обратной связи</li>
 				            <li>Мониторинг конкурентов</li>
 				            <li>400 клиентов/месяц</li>
-				            <li>7 публикации/неделя</li> 
+				            <li>30 публикаций/месяц</li> 
 				            <li>1 конкурс/месяц</li> 
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li> 
 					        </ul>
@@ -370,14 +370,14 @@ class Index extends React.Component {
 					        <h5 className="super">Стандарт</h5>
 					        <ul className="features">
 				            <li className="brief spacing">Вконтакте + Фейсбук</li>
-				            <li className="price">16 900 руб.</li>
+				            <li className="price">20 900 руб.</li>
 				            <li>Разработка контент-плана</li>
 				            <li>Работа копирайтера</li>
 				            <li>Фирменный дизайн</li>
 				            <li>Обработка обратной связи</li>
 				            <li>Мониторинг конкурентов</li>
 				            <li>300 клиентов/месяц</li>
-				            <li>5 публикации/неделя</li>
+				            <li>24 публикаций/месяц</li>
 				            <li>1 конкурс/месяц</li> 
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
 					        </ul>
@@ -393,7 +393,7 @@ class Index extends React.Component {
 					<div className="container">
 						<div className="section-title">
 							<h5 className="super">Бонус</h5>
-							<div className="description">Получите скидку на дополнительный пакет при покупке пакетов</div>
+							<div className="description">Получите скидку на дополнительные опции при покупке пакета</div>
 						</div>
 						<div className="section-content">
 							<div className="positions">
@@ -441,7 +441,7 @@ class Index extends React.Component {
 				            <li>Видео-репортаж 2 минуты</li>
 				            <li>Фотосъемка 10 фото</li>
 				            <li>Статья о вас в журнале</li>
-				            <li>Продюающий текст под 10 позиций</li>
+				            <li>Продающий текст под 10 позиций</li>
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
 					        </ul>
 						    </div>
@@ -453,7 +453,7 @@ class Index extends React.Component {
 				            <li>Видео-репортаж 7 минут</li>
 				            <li>Фотосъемка 20 фото</li>
 				            <li>Статья о вас в журнале</li>
-				            <li>Продюающий текст под 15 позиций</li>
+				            <li>Продающий текст под 15 позиций</li>
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li> 
 					        </ul>
 						    </div>  
@@ -464,7 +464,7 @@ class Index extends React.Component {
 				            <li>Видео-репортаж 5 минут</li>
 				            <li>Фотосъемка 15 фото</li>
 				            <li>Статья о вас в журнале</li>
-				            <li>Продюающий текст под 13 позиций</li>
+				            <li>Продающий текст под 13 позиций</li>
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
 					        </ul>
 						    </div>
@@ -491,7 +491,7 @@ class Index extends React.Component {
 								<Field fieldName="Сообщение" onInput={this.updateMessage} title="Дополнительное сообщение.. (не обязательно)" name="userMessage" type="textarea" />
 								<button onClick={(e) => {this.submitForm(e, generateMailHTML(this.state.message))}} type="submit" className="button">Отправить</button>
 							</form>
-							<p className="primary">После отправки сообщения, наш менеджер свяжется с вами сразу же, как это станет возможным</p>
+							<p className="primary">После отправки сообщения, наш менеджер свяжется с вами</p>
 						</div>
 						<div className="section-actions">
 						</div>
@@ -504,7 +504,7 @@ class Index extends React.Component {
 							<br />
 							<span className="spacing">levelupworlds@gmail.com, г. Москва, Пресненская наб., 6, стр. 2</span>
 							<br />
-							<span className="spacing">(903) 634-69-29</span>
+							<span className="spacing">+7 (903) 634-69-29</span>
 						</div>
 						<div className="section-actions">
 						</div>

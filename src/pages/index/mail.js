@@ -13,7 +13,7 @@ const template = (data) => {
 			}
 		</style>
 		<div class="title">
-			<h2>Появилась новая заявка на сайте promo.levelupworlds.com</h2>
+			<h2>Появилась новая заявка на сайте smm.levelupworlds.com</h2>
 			<p>Обработайте данную заявку и обязательно свяжитесь с клиентом, которые оставил следующие данные</p>
 		</div>
 		<ul class="list">
