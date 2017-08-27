@@ -12,14 +12,7 @@ import "./index.css";
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
-		const { secret, mailsendurl } = this.props.configuration;
-		this.mail = new Mail(
-			config.mail.secret, 
-			'Дарина из Levelup Worlds', 
-			'hh@levelupworlds.com', 
-			'Новая заявка на сайте Levelup.SMM',
-			config.mail.sendURL
-		);
+		this.mail = new Mail('Новая заявка на сайте ' + config.sitename);
 		this.state = {
 			message: {}
 		}

@@ -1,39 +1,36 @@
-import axios from "axios";
+import { axiosAuth } from './axios.js';
 import { NotificationManager } from 'react-notifications';
+import config from '../config.js'
 
 class Mail {
-	constructor(token, who, to, subject, url) {
-		this.token = token;
-		this.who = who;
-		this.to = to;
+	constructor(subject) {
 		this.subject = subject;
-		this.url = url;
 	}
 	dispatchSend(html) {
-		console.log(this.url)
-		return axios({
+		const { who, to, sendURL } = config.mail
+		return axiosAuth({
 			method: "POST",
-			url: this.url,
-			headers: {
-				"x-access-token": this.token 
-			},
+			url: sendURL,
 			data: {
-				who: this.who,
-				to: this.to,
 				subject: this.subject,
 				html,
+				who,
+				to
 			}
 		}).then((response) => {
 			const { success, message } = response.data;
 			console.log(response)	
 		if(success) {
-				return NotificationManager.success(message, 'Успех');
+				NotificationManager.success(message, 'Успех');
+				return true
 			} else {
-				return NotificationManager.error(message, 'Ошибка');
+				NotificationManager.error(message, 'Ошибка');
+				return false
 			}
 		}).catch((err) => {
 			console.log(err)
-			return NotificationManager.error('Ошибка клиента', 'Ошибка');
+			NotificationManager.error('Ошибка клиента', 'Ошибка');
+			return false
 		})
 	}
 }
