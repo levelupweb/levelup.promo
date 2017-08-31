@@ -3,9 +3,10 @@ import scrollreveal from "scrollreveal";
 import Field from '../../components/field/Field.js';
 import smoothScroll from 'smoothscroll';
 import Mail from '../../services/mail.js';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 import generateMailHTML from './mail.js';
 import config from '../../config.js';
+import validateForm from './validation.js'
 import 'react-notifications/lib/notifications.css';
 import "./index.css";
 
@@ -14,33 +15,66 @@ class Index extends React.Component {
 		super(props);
 		this.mail = new Mail('Новая заявка на сайте ' + config.sitename);
 		this.state = {
-			message: {}
+			message: {
+				userEmail: {
+					fieldName: 'E-Mail клиента', value: ''
+				}, 
+				userMessage: {
+					fieldName: 'Сообщение', value: ''
+				}, 
+				userName: {
+					fieldName: 'Имя клиента', value: ''
+				}, 
+				userPhone: {
+					fieldName: 'Мобильный телефон клиента', value: ''
+				}},
+			rules: {
+				userEmail: ['required', 'email'],
+				userMessage: ['required'],
+				userName: ['required'],
+				userPhone: ['required', 'mobile']
+			},
+			errors: []
 		}
 	}
+
 	componentDidMount() {
 		initScrollReveal(scrollreveal());
 		backgroundWrapperMove();
 		bindSmoothScrolling();
+		this.form.addEventListener('submit', e => {
+			e.preventDefault()
+		})
 	}
-	submitForm(e, html) {
+	submitForm(e, message, rules) {
 		e.preventDefault()
-		this.mail.dispatchSend(html)			
+		validateForm(message, rules, err => {
+			if(err.length) return this.setState({
+				errors: err
+			})
+			const html = generateMailHTML(message);
+			this.mail.dispatchSend(html)	
+			.then((did => {
+				if(did) this.form.reset()
+			}))
+		})		
 	}
 	updateMessage = (key, fieldName, value) => {
 		this.setState({
 			message: {
 				...this.state.message,
-				[key]: {
-					fieldName,
-					value
-				}
+				[key]: { fieldName, value }
 			}
 		})
+	}
+	renderErrors(errors) {
+		return <ul>
+			{errors.map((item, i) => <li key={i}>{item}</li>)}
+		</ul>
 	}
 	render() {
 		return (
 			<div className="Index-page page">
-				<NotificationContainer />
 				<section className="fullpage center text first">
 					<div className="section-background">
 						<img src="/img/wallpaper.jpg" width="100%" />
@@ -475,14 +509,15 @@ class Index extends React.Component {
 							<div className="description">Заполните форму и мы свяжемся с вами в ближайшее время</div>
 						</div>
 						<div className="section-content">
-							<form className="fluid">
+							<form className="fluid" ref={(e) => {this.form = e}}>
+								{this.renderErrors(this.state.errors)}
 								<Field fieldName="spamDetection" onInput={this.updateMessage} defaultValue="" title="Бот?" name="spamDetection" hidden={true} />
 								<Field fieldName="Тема сообщения" onInput={this.updateMessage} defaultValue="Новый заказ" title="Тема сообщения" name="subject" type="hidden" />
 								<Field fieldName="Имя клиента" onInput={this.updateMessage} title="Здесь ваше имя" name="userName" type="text" />
 								<Field fieldName="E-Mail клиента" onInput={this.updateMessage} title="Здесь e-mail" name="userEmail" type="text" />
-								<Field fieldName="Мобильный телефон клиента" onInput={this.updateMessage} title="Здесь ваш мобильный (+7)" name="userNumber" type="text" />
+								<Field fieldName="Мобильный телефон клиента" onInput={this.updateMessage} title="Здесь ваш мобильный (+7)" name="userPhone" type="text" />
 								<Field fieldName="Сообщение" onInput={this.updateMessage} title="Дополнительное сообщение.. (не обязательно)" name="userMessage" type="textarea" />
-								<button onClick={(e) => {this.submitForm(e, generateMailHTML(this.state.message))}} type="submit" className="button">Отправить</button>
+								<button onClick={(e) => {this.submitForm(e, this.state.message, this.state.rules)}} type="submit" className="button">Отправить</button>
 							</form>
 							<p className="primary">После отправки сообщения, наш менеджер свяжется с вами</p>
 						</div>
