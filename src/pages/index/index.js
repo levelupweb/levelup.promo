@@ -85,6 +85,24 @@ class Index extends React.Component {
 						</div>
 						<div className="jumbotron inverted">
 							<div className="jumbotron-title">
+								<div className="socials">
+								<div className="social vk">
+									<a href="https://vk.com/levelupsmm" target="_blank">
+										<i className="fa fa-vk"></i>
+									</a>
+								</div>
+								<div className="social instagram">
+									<a href="https://www.instagram.com/levelup.smm/" target="_blank">
+										<i className="fa fa-instagram"></i>
+									</a>
+								</div>
+								<div className="social facebook">
+									<a href="https://www.facebook.com/Levelup-SMM-1646742608710216/" target="_blank">
+										<i className="fa fa-facebook"></i>
+									</a>
+								</div>
+							</div>
+							<br />
 								<h3 className="super title">Levelup <span className="primary">SMM</span></h3>
 							</div>
 							<div className="jumbotron-content">
@@ -533,8 +551,27 @@ class Index extends React.Component {
 							<span className="spacing">levelupworlds@gmail.com, г. Москва, Пресненская наб., 6, стр. 2</span>
 							<br />
 							<span className="spacing">+7 (903) 634-69-29</span>
+							<br />
+							<div className="socials">
+								<div className="social vk">
+									<a href="https://vk.com/levelupsmm" target="_blank">
+										<i className="fa fa-vk"></i>
+									</a>
+								</div>
+								<div className="social instagram">
+									<a href="https://www.instagram.com/levelup.smm/" target="_blank">
+										<i className="fa fa-instagram"></i>
+									</a>
+								</div>
+								<div className="social facebook">
+									<a href="https://www.facebook.com/Levelup-SMM-1646742608710216/" target="_blank">
+										<i className="fa fa-facebook"></i>
+									</a>
+								</div>
+							</div>
 						</div>
 						<div className="section-actions">
+
 						</div>
 					</div>
 				</section>
