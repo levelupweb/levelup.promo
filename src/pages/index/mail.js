@@ -1,33 +1,23 @@
-const template = (data) => {
-	return `<html><body>
-		<style>
-			.title h2 {
-				margin-bottom:0px;
-			}
-			.title p {
-				margin-top:0px;
-			}
-			.list {
-				margin-top:0px;
-				padding-top:0px;
-			}
-		</style>
+const template = (data) => `
+<html>
+	<style>.title h2 {margin-bottom:0px;}.title p {margin-top:0px;}.list {margin-top:0px;padding-top:0px;}</style>
+	<body>
 		<div class="title">
 			<h2>Появилась новая заявка на сайте smm.levelupworlds.com</h2>
 			<p>Обработайте данную заявку и обязательно свяжитесь с клиентом, которые оставил следующие данные</p>
 		</div>
-		<ul class="list">
-			${renderList(data)}
+		<ul class="list"> 
+			${renderList(data)} 
 		</ul>
-	</body></html>`
-}
+	</body>
+</html>`;
 
-const renderList = (data) => {
-	return Object.values(data).map((item) => {
-		if(!item.spamDetection) {
+const renderList = (data) => Object.values(data).map((item) => {
+		if (!item.spamDetection) {
 			return `<li><b>${item.fieldName}</b>: ${item.value}</li>`;
+		} else {
+			return "<li><b>Проверка спама</b>: Не пройдена</li>";
 		}
-	}).join('')
-}
+	}).join("");
 
-export default template
+export default template;

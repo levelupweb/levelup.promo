@@ -1,83 +1,86 @@
 import React from "react";
 import scrollreveal from "scrollreveal";
-import Field from '../../components/field/Field.js';
-import smoothScroll from 'smoothscroll';
-import Mail from '../../services/mail.js';
-import { NotificationManager } from 'react-notifications';
-import generateMailHTML from './mail.js';
-import config from '../../config.js';
-import validateForm from './validation.js'
-import 'react-notifications/lib/notifications.css';
+import Field from "../../components/field/Field.js";
+import smoothScroll from "smoothscroll";
+import Mail from "../../services/mail.js";
+import generateMailHTML from "./mail.js";
+import config from "../../config.js";
+import validateForm from "./validation.js";
+import "react-notifications/lib/notifications.css";
 import "./index.css";
+
+const renderErrors = errors => (<ul>
+	{errors.map((item, i) => <li key={i}>{item}</li>)}
+                                </ul>);
 
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
-		this.mail = new Mail('Новая заявка на сайте ' + config.sitename);
+		this.mail = new Mail(`Новая заявка на сайте ${config.sitename}`);
+		this.updateMessage = this.updateMessage.bind(this);
+		this.submitForm = this.submitForm.bind(this);
 		this.state = {
 			message: {
-				userEmail: {
-					fieldName: 'E-Mail клиента', value: ''
-				}, 
-				userMessage: {
-					fieldName: 'Сообщение', value: ''
-				}, 
-				userName: {
-					fieldName: 'Имя клиента', value: ''
-				}, 
-				userPhone: {
-					fieldName: 'Мобильный телефон клиента', value: ''
-				}},
+				userEmail: { fieldName: "E-Mail клиента", value: "" },
+				userMessage: { fieldName: "Сообщение", value: "" },
+				userName: { fieldName: "Имя клиента", value: "" },
+				userPhone: { fieldName: "Мобильный телефон клиента", value: "" }
+			},
 			rules: {
-				userEmail: ['required', 'email'],
-				userMessage: ['required'],
-				userName: ['required'],
-				userPhone: ['required', 'mobile']
+				userEmail: ["required", "email"],
+				userMessage: ["required"],
+				userName: ["required"],
+				userPhone: ["required", "mobile"]
 			},
 			errors: []
-		}
+		};
 	}
 
 	componentDidMount() {
 		initScrollReveal(scrollreveal());
 		backgroundWrapperMove();
 		bindSmoothScrolling();
-		this.form.addEventListener('submit', e => {
-			e.preventDefault()
-		})
+		this.form.addEventListener("submit", e => {
+			e.preventDefault();
+		});
 	}
-	submitForm(e, message, rules) {
-		e.preventDefault()
+
+	submitForm(e) {
+		const {
+			message,
+			rules
+		} = this.state;
+
+		e.preventDefault();
+
 		validateForm(message, rules, err => {
-			if(err.length) return this.setState({
-				errors: err
-			})
-			const html = generateMailHTML(message);
-			this.mail.dispatchSend(html)	
-			.then((did => {
-				if(did) this.form.reset()
-			}))
-		})		
+			if (err.length) {
+				return this.setState({
+					errors: err
+				});
+			}
+
+			return this.mail.dispatchSend(generateMailHTML(message))
+				.then(() => this.form.reset())
+				.catch((err) => console.log(err));
+		});
 	}
-	updateMessage = (key, fieldName, value) => {
+
+	updateMessage(key, fieldName, value) {
 		this.setState({
 			message: {
 				...this.state.message,
 				[key]: { fieldName, value }
 			}
-		})
+		});
 	}
-	renderErrors(errors) {
-		return <ul>
-			{errors.map((item, i) => <li key={i}>{item}</li>)}
-		</ul>
-	}
+
 	render() {
 		return (
 			<div className="Index-page page">
 				<section className="fullpage center text first">
 					<div className="section-background">
-						<img src="/img/wallpaper.jpg" width="100%" />
+						<img alt="Levelup SMM - продвижение в социальных сетях" src="/img/wallpaper.jpg" width="100%" />
 					</div>
 					<div className="container">
 						<div className="logo">
@@ -87,21 +90,21 @@ class Index extends React.Component {
 							<div className="jumbotron-title">
 								<div className="socials">
 								<div className="social vk">
-									<a href="https://vk.com/levelupsmm" target="_blank">
-										<i className="fa fa-vk"></i>
+									<a rel="noopener noreferrer" href="https://vk.com/levelupsmm" target="_blank">
+										<i className="fa fa-vk" />
 									</a>
 								</div>
 								<div className="social instagram">
-									<a href="https://www.instagram.com/levelup.smm/" target="_blank">
-										<i className="fa fa-instagram"></i>
+									<a rel="noopener noreferrer" href="https://www.instagram.com/levelup.smm/" target="_blank">
+										<i className="fa fa-instagram" />
 									</a>
 								</div>
 								<div className="social facebook">
-									<a href="https://www.facebook.com/Levelup-SMM-1646742608710216/" target="_blank">
-										<i className="fa fa-facebook"></i>
+									<a rel="noopener noreferrer" href="https://www.facebook.com/Levelup-SMM-1646742608710216/" target="_blank">
+										<i className="fa fa-facebook" />
 									</a>
 								</div>
-							</div>
+        </div>
 							<br />
 								<h3 className="super title">Levelup <span className="primary">SMM</span></h3>
 							</div>
@@ -177,8 +180,9 @@ class Index extends React.Component {
 									<div className="title">2017</div>
 								</div>
 							</div>
-							<p className="primary">Процент покупателей, которые перед покупкой искали 
-							информацию о товаре в социальных сетях. И этот процент растёт с каждым днём!</p>
+							<p className="primary">Процент покупателей, которые перед покупкой искали
+							информацию о товаре в социальных сетях. И этот процент растёт с каждым днём!
+       </p>
 						</div>
 						<div className="section-actions">
 							<button className="button" data-scrollTo=".third">Преимущества</button>
@@ -199,15 +203,22 @@ class Index extends React.Component {
 									</div>
 									<div className="advantage-content">
 										<h6 className="advantage-title super">
-											Над рекламной кампанией по продвижению будет работать 
-											целая команда профессионалов
+											Команда профессионалов
 										</h6>
 										<div className="advantage-description">
 											<p>
-												Чтобы процесс организации рекламной кампании шёл более эффективно, 
-												мы привлекаем к процессу целый список специалистов: стратег, 
-												контент-менеджер, копирайтер, таргетолог, комьюнити-менеджер, креатор, дизайнер
+												Чтобы процесс организации рекламной кампании шёл более эффективно,
+												мы привлекаем к процессу целый список специалистов
 											</p>
+											<ul className="advantages-list">
+												<li><i className="fa fa-check" /> стратег</li>
+												<li><i className="fa fa-check" /> контент-менеджер</li>
+												<li><i className="fa fa-check" /> копирайтер</li>
+												<li><i className="fa fa-check" /> таргетолог</li>
+												<li><i className="fa fa-check" /> комьюнити-менеджер</li>
+												<li><i className="fa fa-check" /> креатор</li>
+												<li><i className="fa fa-check" /> дизайнер</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -220,8 +231,8 @@ class Index extends React.Component {
 									</h6>
 									<div className="advantage-description">
 										<p>
-											Наша команда успешно спланировала и реализовала уже более 50 рекламных кампаний 
-											для реальных брендов. Благодаря нашей работе бизнес многих наших клиентов обрёл 
+											Наша команда успешно спланировала и реализовала уже более 700 рекламных кампаний
+											для реальных брендов. Благодаря нашей работе бизнес многих наших клиентов обрёл
 											дополнительный доход!
 										</p>
 									</div>
@@ -285,7 +296,7 @@ class Index extends React.Component {
 									<h4>Музыка</h4>
 								</div>
 							</div>
-							<p className="primary">Наша команда, состоящая из 8 человек готова генерировать уникальный контент самых разных типов: от текстового копирайтинга до высококачественного видео.</p>
+							<p className="primary">Наша команда готова генерировать уникальный контент самых разных типов: от текстового копирайтинга до высококачественного видео.</p>
 						</div>
 						<div className="section-actions">
 							<button className="button" data-scrollTo=".seventh">Выбрать тарифный план</button>
@@ -301,7 +312,7 @@ class Index extends React.Component {
 						<div className="section-content">
 							<p className="primary">Если сравнивать SMM со стандартными методами продвижения, стратегия продвижения в социальных сетях выигрывает в 3-4 раза!</p>
 							<div className="graph">
-								<img src="/img/graph.png" width="100%" />
+								<img src="/img/graph.png" alt="SMM Levelup - продвижение в социальных сетях" width="100%" />
 								<div className="x-axis">Продолжительность кампании</div>
 								<div className="y-axis">Вирусный прирост</div>
 							</div>
@@ -330,7 +341,7 @@ class Index extends React.Component {
 								<div className="item">
 									<img src="img/network.png" alt="Сеть" />
 									<h4>Глубокое вовлечение</h4>
-									<p>Дайте вашим клиентам стать частью вашего бренда и получите хорошую отдачу</p>
+									<p>Дайте вашим клиентам стать частью вашего бренда и получите материальную отдачу</p>
 								</div>
 							</div>
 						</div>
@@ -378,12 +389,12 @@ class Index extends React.Component {
 							<div className="description">Выберите оптимальный тариф</div>
 						</div>
 						<div className="section-content">
-							<div className="promos">  
+							<div className="promos">
 						    <div className="promo left">
 					        <h5 className="super">База</h5>
 					        <ul className="features">
 				            <li className="brief spacing">Вконтакте + Фейсбук</li>
-				            <li className="price">16 900 руб.</li>
+				            <li className="price">26 900 руб.</li>
 				            <li>Разработка контент-плана</li>
 				            <li>Работа копирайтера</li>
 				            <li>Фирменный дизайн</li>
@@ -391,31 +402,30 @@ class Index extends React.Component {
 				            <li>Мониторинг конкурентов</li>
 				            <li>200 клиентов/месяц</li>
 				            <li>12 публикаций/месяц</li>
-				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
+				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
 						    </div>
 						    <div className="promo third scale">
 					        <h5 className="super">Премиум</h5>
 					        <ul className="features">
 				            <li className="brief spacing">Вконтакте + Фейсбук</li>
-				            <li className="price">23 900 руб.</li>
+				            <li className="price">33 900 руб.</li>
 				            <li>Разработка контент-плана</li>
 				            <li>Работа копирайтера</li>
-				            <li>Статья в журнале</li> 
 				            <li>Фирменный дизайн</li>
 				            <li>Обработка обратной связи</li>
 				            <li>Мониторинг конкурентов</li>
 				            <li>400 клиентов/месяц</li>
-				            <li>30 публикаций/месяц</li> 
-				            <li>1 конкурс/месяц</li> 
-				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li> 
+				            <li>30 публикаций/месяц</li>
+				            <li>1 конкурс/месяц</li>
+				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
-						    </div>  
+						    </div>
 						    <div className="promo right">
 					        <h5 className="super">Стандарт</h5>
 					        <ul className="features">
 				            <li className="brief spacing">Вконтакте + Фейсбук</li>
-				            <li className="price">20 900 руб.</li>
+				            <li className="price">30 900 руб.</li>
 				            <li>Разработка контент-плана</li>
 				            <li>Работа копирайтера</li>
 				            <li>Фирменный дизайн</li>
@@ -423,8 +433,8 @@ class Index extends React.Component {
 				            <li>Мониторинг конкурентов</li>
 				            <li>300 клиентов/месяц</li>
 				            <li>24 публикаций/месяц</li>
-				            <li>1 конкурс/месяц</li> 
-				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
+				            <li>1 конкурс/месяц</li>
+				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
 						    </div>
 							</div>
@@ -438,14 +448,14 @@ class Index extends React.Component {
 					<div className="container">
 						<div className="section-title">
 							<h5 className="super">Бонус</h5>
-							<div className="description">Получите скидку на дополнительные опции при покупке пакета</div>
+							<div className="description">Получите скидку на дополнительные опции при покупке <strong>основного</strong> пакета</div>
 						</div>
 						<div className="section-content">
 							<div className="positions">
 								<div className="position">
 									<div className="position-header">
 										<img src="img/odnoklassniki-logo.png" alt="Одноклассники" />
-										<h4 className="super position-price">2 499 р.</h4>
+										<h4 className="super position-price">6 499 р.</h4>
 									</div>
 									<div className="position-content">
 										<h6 className="position-title super">
@@ -456,7 +466,7 @@ class Index extends React.Component {
 								<div className="position">
 									<div className="position-header">
 										<img src="img/instagram-logo.png" alt="Инстаграм" />
-										<h4 className="super position-price">2 499 р.</h4>
+										<h4 className="super position-price">6 499 р.</h4>
 									</div>
 									<div className="position-content">
 										<h6 className="position-title super">
@@ -466,8 +476,7 @@ class Index extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className="section-actions">
-						</div>
+						<div className="section-actions" />
 					</div>
 				</section>
 				<section className="center nineth">
@@ -478,46 +487,42 @@ class Index extends React.Component {
 						</div>
 						<div className="section-content">
 							<p className="primary">Мы предлагаем не только реализацию маркетинговой стратегии по развитию в социальных сетях, но также и помощь создании качественного контента любого формата.</p>
-							<div className="promos">  
+							<div className="promos">
 						    <div className="promo left">
 					        <h5 className="super">Мини</h5>
 					        <ul className="features">
-				            <li className="price">9 900 руб.</li>
+				            <li className="price">19 900 руб.</li>
 				            <li>Видео-репортаж 2 минуты</li>
 				            <li>Фотосъемка 10 фото</li>
-				            <li>Статья о вас в журнале</li>
 				            <li>Продающий текст под 10 позиций</li>
-				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
+				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
 						    </div>
 						    <div className="promo third scale">
 					        <h5 className="super">Премиум</h5>
 					        <ul className="features">
 					        	<li className="brief spacing">Выбор для профессионалов</li>
-				            <li className="price">18 900 руб.</li>
+				            <li className="price">30 900 руб.</li>
 				            <li>Видео-репортаж 7 минут</li>
 				            <li>Фотосъемка 20 фото</li>
-				            <li>Статья о вас в журнале</li>
 				            <li>Продающий текст под 15 позиций</li>
-				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li> 
+				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
-						    </div>  
+						    </div>
 						    <div className="promo right">
 					        <h5 className="super">Стандарт</h5>
 					        <ul className="features">
-				            <li className="price">13 900 руб.</li>
+				            <li className="price">25 900 руб.</li>
 				            <li>Видео-репортаж 5 минут</li>
 				            <li>Фотосъемка 15 фото</li>
-				            <li>Статья о вас в журнале</li>
 				            <li>Продающий текст под 13 позиций</li>
-				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>   
+				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
 						    </div>
 							</div>
 							<p className="primary">Мы поможем вам в создании качественного контента для ваших идей. Видео, аудио, фото, текст - всё это включает каждый из наших пакетов</p>
 						</div>
-						<div className="section-actions">
-						</div>
+						<div className="section-actions" />
 					</div>
 				</section>
 				<section className="center ten fullpage">
@@ -527,20 +532,24 @@ class Index extends React.Component {
 							<div className="description">Заполните форму и мы свяжемся с вами в ближайшее время</div>
 						</div>
 						<div className="section-content">
-							<form className="fluid" ref={(e) => {this.form = e}}>
-								{this.renderErrors(this.state.errors)}
-								<Field fieldName="spamDetection" onInput={this.updateMessage} defaultValue="" title="Бот?" name="spamDetection" hidden={true} />
+							<form
+  className="fluid"
+  ref={e => {
+									this.form = e;
+								}}
+							>
+								{renderErrors(this.state.errors)}
+								<Field fieldName="spamDetection" onInput={this.updateMessage} defaultValue="" title="Бот?" name="spamDetection" hidden />
 								<Field fieldName="Тема сообщения" onInput={this.updateMessage} defaultValue="Новый заказ" title="Тема сообщения" name="subject" type="hidden" />
 								<Field fieldName="Имя клиента" onInput={this.updateMessage} title="Здесь ваше имя" name="userName" type="text" />
 								<Field fieldName="E-Mail клиента" onInput={this.updateMessage} title="Здесь e-mail" name="userEmail" type="text" />
 								<Field fieldName="Мобильный телефон клиента" onInput={this.updateMessage} title="Здесь ваш мобильный (+7)" name="userPhone" type="text" />
 								<Field fieldName="Сообщение" onInput={this.updateMessage} title="Дополнительное сообщение.. (не обязательно)" name="userMessage" type="textarea" />
-								<button onClick={(e) => {this.submitForm(e, this.state.message, this.state.rules)}} type="submit" className="button">Отправить</button>
+								<button onClick={this.submitForm} type="submit" className="button">Отправить</button>
 							</form>
 							<p className="primary">После отправки сообщения, наш менеджер свяжется с вами</p>
 						</div>
-						<div className="section-actions">
-						</div>
+						<div className="section-actions" />
 					</div>
 				</section>
 				<section className="center footer inverted">
@@ -554,25 +563,23 @@ class Index extends React.Component {
 							<br />
 							<div className="socials">
 								<div className="social vk">
-									<a href="https://vk.com/levelupsmm" target="_blank">
-										<i className="fa fa-vk"></i>
+									<a rel="noopener noreferrer" href="https://vk.com/levelupsmm" target="_blank">
+										<i className="fa fa-vk" />
 									</a>
 								</div>
 								<div className="social instagram">
-									<a href="https://www.instagram.com/levelup.smm/" target="_blank">
-										<i className="fa fa-instagram"></i>
+									<a rel="noopener noreferrer" href="https://www.instagram.com/levelup.smm/" target="_blank">
+										<i className="fa fa-instagram" />
 									</a>
 								</div>
 								<div className="social facebook">
-									<a href="https://www.facebook.com/Levelup-SMM-1646742608710216/" target="_blank">
-										<i className="fa fa-facebook"></i>
+									<a rel="noopener noreferrer" href="https://www.facebook.com/Levelup-SMM-1646742608710216/" target="_blank">
+										<i className="fa fa-facebook" />
 									</a>
 								</div>
 							</div>
 						</div>
-						<div className="section-actions">
-
-						</div>
+						<div className="section-actions" />
 					</div>
 				</section>
 			</div>
@@ -660,35 +667,34 @@ const initScrollReveal = (sr) => {
 		duration: 500,
 		delay: 100,
 		origin: "top"
-	}, 200); 
-
-}
+	}, 200);
+};
 
 const backgroundWrapperMove = () => {
 	if (window.innerWidth > 998) {
 		const movementStrength = 25;
 		const height = movementStrength / window.innerHeight;
 		const width = movementStrength / window.innerWidth;
-		const area = document.querySelector('section.first');
-		const image = document.querySelector('section.first .section-background img');
-		area.addEventListener('mousemove', (e) => {
+		const area = document.querySelector("section.first");
+		const image = document.querySelector("section.first .section-background img");
+		area.addEventListener("mousemove", (e) => {
 			const pageX = e.pageX - (window.innerWidth / 2);
   	 const pageY = e.pageY - (window.innerHeight / 2);
    	 const newvalueX = width * pageX * -1 - 25;
   	  const newvalueY = height * pageY * -1 - 50;
-  	  image.style.top = newvalueX+"px";
-  	  image.style.left = newvalueY+'px'
-		})
+  	  image.style.top = `${newvalueX}px`;
+  	  image.style.left = `${newvalueY}px`;
+		});
 	}
-}
+};
 
 const bindSmoothScrolling = () => {
-	const links = document.querySelectorAll('[data-scrollTo]');
+	const links = document.querySelectorAll("[data-scrollTo]");
 	links.forEach((link) => {
-		link.addEventListener('click', (e) => {
+		link.addEventListener("click", (e) => {
 			smoothScroll(document.querySelector(e.target.dataset.scrollto));
-		})
-	})
-}
+		});
+	});
+};
 
 export default Index;

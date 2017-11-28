@@ -1,37 +1,43 @@
-import { axiosAuth } from './axios.js';
-import { NotificationManager } from 'react-notifications';
-import config from '../config.js'
+import axios from "axios";
+import { NotificationManager } from "react-notifications";
+import config from "../config";
 
 class Mail {
 	constructor(subject) {
 		this.subject = subject;
 	}
+
 	dispatchSend(html) {
-		const { who, to, sendURL } = config.mail
-		return axiosAuth({
+		const {
+			who,
+			to,
+			sendURL
+		} = config.mail;
+
+		return axios({
 			method: "POST",
 			url: sendURL,
+			headers: {
+				authorization: config.token
+			},
 			data: {
 				subject: this.subject,
 				html,
 				who,
 				to
 			}
-		}).then((response) => {
-			const { success, message } = response.data;
-			console.log(response)	
-		if(success) {
-				NotificationManager.success(message, 'Успех');
-				return true
+		}).then(({ data }) => {
+			if (data.success) {
+				NotificationManager.success("Ваше сообщение успешно доставлено", "Успех");
+				return Promise.resolve();
 			} else {
-				NotificationManager.error(message, 'Ошибка');
-				return false
+				NotificationManager.error("При отправке сообщения возникла непредвиденная ошибка", "Ошибка");
+				return Promise.reject();
 			}
 		}).catch((err) => {
-			console.log(err)
-			NotificationManager.error('Ошибка клиента', 'Ошибка');
-			return false
-		})
+			NotificationManager.error("Попробуйте позже, не удалось связаться с сервером", "Ошибка");
+			return Promise.reject(err);
+		});
 	}
 }
 

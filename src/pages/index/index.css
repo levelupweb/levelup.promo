@@ -240,6 +240,11 @@
 .advantage .advantage-description {
 	padding-bottom:25px;
 }
+.advantage .advantages-list {
+	margin:0;
+	list-style-type:none;
+	padding:0;
+}
 .positions {
 	display:flex;
 	justify-content: space-around;
