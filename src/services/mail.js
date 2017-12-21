@@ -5,6 +5,7 @@ import config from "../config";
 class Mail {
 	constructor(subject) {
 		this.subject = subject;
+		this.dispatchSend = this.dispatchSend.bind(this);
 	}
 
 	dispatchSend(html) {

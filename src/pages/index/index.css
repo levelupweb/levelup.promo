@@ -49,6 +49,12 @@
 }
 .jumbotron-actions {
 	margin-top:30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.jumbotron-actions > * {
+	margin:5px;
 }
 .intro-example {
 	position: relative;

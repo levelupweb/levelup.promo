@@ -1,78 +1,18 @@
 import React from "react";
 import scrollreveal from "scrollreveal";
-import Field from "../../components/field/Field.js";
 import smoothScroll from "smoothscroll";
-import Mail from "../../services/mail.js";
-import generateMailHTML from "./mail.js";
-import config from "../../config.js";
-import validateForm from "./validation.js";
 import "react-notifications/lib/notifications.css";
+import Modal from "../../components/modal/Modal";
+import CallbackForm from "../../components/callbackForm";
+import CheckPrice from "../../components/checkPrice";
+import ContactForm from "../../components/contactForm";
 import "./index.css";
 
-const renderErrors = errors => (<ul>
-	{errors.map((item, i) => <li key={i}>{item}</li>)}
-                                </ul>);
-
 class Index extends React.Component {
-	constructor(props) {
-		super(props);
-		this.mail = new Mail(`Новая заявка на сайте ${config.sitename}`);
-		this.updateMessage = this.updateMessage.bind(this);
-		this.submitForm = this.submitForm.bind(this);
-		this.state = {
-			message: {
-				userEmail: { fieldName: "E-Mail клиента", value: "" },
-				userMessage: { fieldName: "Сообщение", value: "" },
-				userName: { fieldName: "Имя клиента", value: "" },
-				userPhone: { fieldName: "Мобильный телефон клиента", value: "" }
-			},
-			rules: {
-				userEmail: ["required", "email"],
-				userMessage: ["required"],
-				userName: ["required"],
-				userPhone: ["required", "mobile"]
-			},
-			errors: []
-		};
-	}
-
 	componentDidMount() {
 		initScrollReveal(scrollreveal());
 		backgroundWrapperMove();
 		bindSmoothScrolling();
-		this.form.addEventListener("submit", e => {
-			e.preventDefault();
-		});
-	}
-
-	submitForm(e) {
-		const {
-			message,
-			rules
-		} = this.state;
-
-		e.preventDefault();
-
-		validateForm(message, rules, err => {
-			if (err.length) {
-				return this.setState({
-					errors: err
-				});
-			}
-
-			return this.mail.dispatchSend(generateMailHTML(message))
-				.then(() => this.form.reset())
-				.catch((err) => console.log(err));
-		});
-	}
-
-	updateMessage(key, fieldName, value) {
-		this.setState({
-			message: {
-				...this.state.message,
-				[key]: { fieldName, value }
-			}
-		});
 	}
 
 	render() {
@@ -115,7 +55,27 @@ class Index extends React.Component {
 								</p>
 							</div>
 							<div className="jumbotron-actions">
-								<button className="button" data-scrollTo=".intro">Как это работает?</button>
+								<Modal
+  options={{
+										title: "Бесплатная консультация",
+										description: "Заполните форму,чтобы наш менеджер мог с вами легко связаться для получения дальнейших бесплатных консультаций"
+									}}
+  render={() =>
+										<CallbackForm />
+									}
+								>
+									<button className="button">Получить консультацию</button>
+								</Modal>
+									<Modal
+  options={{
+		title: "Рассчитать стоимость",
+		description: "Заполните форму,чтобы наш менеджер мог с вами легко связаться для получения дальнейших бесплатных консультаций"
+	}}
+  render={() => <CheckPrice />}
+									>
+
+								<button className="button">Узнать стоимость</button>
+         </Modal>
 							</div>
 						</div>
 					</div>
@@ -181,7 +141,7 @@ class Index extends React.Component {
 								</div>
 							</div>
 							<p className="primary">Процент покупателей, которые перед покупкой искали
-							информацию о товаре в социальных сетях. И этот процент растёт с каждым днём!
+							информацию о товаре в интернете. И этот процент растёт с каждым днём!
        </p>
 						</div>
 						<div className="section-actions">
@@ -393,47 +353,55 @@ class Index extends React.Component {
 						    <div className="promo left">
 					        <h5 className="super">База</h5>
 					        <ul className="features">
-				            <li className="brief spacing">Вконтакте + Фейсбук</li>
-				            <li className="price">26 900 руб.</li>
+				            <li className="brief spacing">Вконтакте + Фейсбук + Инстаграм</li>
+				            <li className="price">29 900 руб.</li>
+										<li>Оформление аккаунтов</li>
 				            <li>Разработка контент-плана</li>
 				            <li>Работа копирайтера</li>
 				            <li>Фирменный дизайн</li>
+										<li>Привлечение целевой аудитории</li>
 				            <li>Обработка обратной связи</li>
 				            <li>Мониторинг конкурентов</li>
-				            <li>200 клиентов/месяц</li>
-				            <li>12 публикаций/месяц</li>
+				            <li>30 публикаций/месяц</li>
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
 						    </div>
 						    <div className="promo third scale">
 					        <h5 className="super">Премиум</h5>
 					        <ul className="features">
-				            <li className="brief spacing">Вконтакте + Фейсбук</li>
-				            <li className="price">33 900 руб.</li>
+				            <li className="brief spacing">Вконтакте + Фейсбук + Инстаграм</li>
+				            <li className="price">59 900 руб.</li>
+										<li>Оформление аккаунтов</li>
 				            <li>Разработка контент-плана</li>
 				            <li>Работа копирайтера</li>
 				            <li>Фирменный дизайн</li>
+										<li>Привлечение целевой аудитории</li>
 				            <li>Обработка обратной связи</li>
 				            <li>Мониторинг конкурентов</li>
-				            <li>400 клиентов/месяц</li>
-				            <li>30 публикаций/месяц</li>
-				            <li>1 конкурс/месяц</li>
+										<li>Таргетированная реклама</li>
+										<li>Посев рекламы</li>
+										<li>Работа с блогерами</li>
+				            <li>50 публикаций/месяц</li>
+				            <li>Проведение конкурса</li>
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
 						    </div>
 						    <div className="promo right">
 					        <h5 className="super">Стандарт</h5>
 					        <ul className="features">
-				            <li className="brief spacing">Вконтакте + Фейсбук</li>
-				            <li className="price">30 900 руб.</li>
+				            <li className="brief spacing">Вконтакте + Фейсбук + Инстаграм</li>
+				            <li className="price">39 900 руб.</li>
+										<li>Оформление аккаунтов</li>
 				            <li>Разработка контент-плана</li>
 				            <li>Работа копирайтера</li>
 				            <li>Фирменный дизайн</li>
+										<li>Привлечение целевой аудитории</li>
 				            <li>Обработка обратной связи</li>
 				            <li>Мониторинг конкурентов</li>
-				            <li>300 клиентов/месяц</li>
-				            <li>24 публикаций/месяц</li>
-				            <li>1 конкурс/месяц</li>
+										<li>Таргетированная реклама</li>
+										<li>Посев рекламы</li>
+				            <li>30 публикаций/месяц</li>
+				            <li>Проведение конкурса</li>
 				            <li className="buy"><button data-scrollTo=".ten" className="button">Оформить</button></li>
 					        </ul>
 						    </div>
@@ -455,7 +423,7 @@ class Index extends React.Component {
 								<div className="position">
 									<div className="position-header">
 										<img src="img/odnoklassniki-logo.png" alt="Одноклассники" />
-										<h4 className="super position-price">6 499 р.</h4>
+										<h4 className="super position-price">8 900 р.</h4>
 									</div>
 									<div className="position-content">
 										<h6 className="position-title super">
@@ -465,12 +433,12 @@ class Index extends React.Component {
 								</div>
 								<div className="position">
 									<div className="position-header">
-										<img src="img/instagram-logo.png" alt="Инстаграм" />
-										<h4 className="super position-price">6 499 р.</h4>
+										<img src="img/telegram-logo.png" alt="Телеграм" />
+										<h4 className="super position-price">10 900 р.</h4>
 									</div>
 									<div className="position-content">
 										<h6 className="position-title super">
-											Создавайте онлайн-витрину в Инстаграм
+											Поддерживайте контакт в Telegram
 										</h6>
 									</div>
 								</div>
@@ -532,21 +500,8 @@ class Index extends React.Component {
 							<div className="description">Заполните форму и мы свяжемся с вами в ближайшее время</div>
 						</div>
 						<div className="section-content">
-							<form
-  className="fluid"
-  ref={e => {
-									this.form = e;
-								}}
-							>
-								{renderErrors(this.state.errors)}
-								<Field fieldName="spamDetection" onInput={this.updateMessage} defaultValue="" title="Бот?" name="spamDetection" hidden />
-								<Field fieldName="Тема сообщения" onInput={this.updateMessage} defaultValue="Новый заказ" title="Тема сообщения" name="subject" type="hidden" />
-								<Field fieldName="Имя клиента" onInput={this.updateMessage} title="Здесь ваше имя" name="userName" type="text" />
-								<Field fieldName="E-Mail клиента" onInput={this.updateMessage} title="Здесь e-mail" name="userEmail" type="text" />
-								<Field fieldName="Мобильный телефон клиента" onInput={this.updateMessage} title="Здесь ваш мобильный (+7)" name="userPhone" type="text" />
-								<Field fieldName="Сообщение" onInput={this.updateMessage} title="Дополнительное сообщение.. (не обязательно)" name="userMessage" type="textarea" />
-								<button onClick={this.submitForm} type="submit" className="button">Отправить</button>
-							</form>
+							<ContactForm />
+							<br />
 							<p className="primary">После отправки сообщения, наш менеджер свяжется с вами</p>
 						</div>
 						<div className="section-actions" />
@@ -588,21 +543,6 @@ class Index extends React.Component {
 }
 
 const initScrollReveal = (sr) => {
-	sr.reveal(".jumbotron-title", {
-		duration: 500,
-		delay: 200,
-		origin: "top"
-	});
-	sr.reveal(".jumbotron-content", {
-		duration: 500,
-		delay: 600,
-		origin: "top"
-	});
-	sr.reveal(".jumbotron-actions", {
-		duration: 500,
-		delay: 100,
-		origin: "top"
-	});
 	sr.reveal(".section-title", {
 		duration: 500,
 		delay: 300,

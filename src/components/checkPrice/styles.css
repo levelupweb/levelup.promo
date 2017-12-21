@@ -1,0 +1,9 @@
+.check-price-form,
+.check-price-form input,
+.check-price-form textarea {
+  width:100%;
+}
+
+.check-price-form ul {
+  text-align: left;
+}

@@ -1,0 +1,9 @@
+.callback-form,
+.callback-form input,
+.callback-form textarea {
+  width:100%;
+}
+
+.callback-form ul {
+  text-align: left;
+}
