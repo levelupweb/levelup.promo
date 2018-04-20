@@ -1,5 +1,6 @@
 .blocked {
-  overflow:hidden;
+  overflow: hidden;
+  position: fixed;
 }
 .inverted * {
 	color:#fff!important;

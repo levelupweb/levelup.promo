@@ -2,7 +2,7 @@ import React from "react";
 import scrollreveal from "scrollreveal";
 import smoothScroll from "smoothscroll";
 import "react-notifications/lib/notifications.css";
-import Modal from "../../components/modal/Modal";
+import Modal from "../../components/modal";
 import CallbackForm from "../../components/callbackForm";
 import CheckPrice from "../../components/checkPrice";
 import ContactForm from "../../components/contactForm";

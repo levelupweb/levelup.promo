@@ -1,26 +1,24 @@
 import React, { Component } from "react";
-import Field from "../field";
-import "./modal.css";
+import "./styles.css";
 
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.reveal = this.reveal.bind(this);
+
     this.state = {
       isRevealed: false
     };
   }
+
   reveal() {
-    this.setState({
-      isRevealed: !this.state.isRevealed
+    this.setState(state => ({ isRevealed: !state.isRevealed }), () => {
+      toggleBlurOnBody();
     });
-    toggleBlurOnBody();
   }
+
   render() {
-    const {
-      isRevealed,
-      message
-    } = this.state;
+    const { isRevealed, } = this.state;
 
     const {
       render,
@@ -37,7 +35,7 @@ class Modal extends Component {
         <div className={isRevealed ? "Modal open" : "Modal"}>
           <div className="Modal-wrapper inverted">
             <div className="Modal-closer">
-              <button className="button ghost" onClick={() => this.reveal()}>Закрыть</button>
+              <button className="button ghost" onClick={this.reveal}>Закрыть</button>
             </div>
             <div className="Modal-title">
               <div className="block">
@@ -60,8 +58,10 @@ class Modal extends Component {
   }
 }
 
-function toggleBlurOnBody() {
-  document.querySelector("html").classList.toggle("blocked");
-}
+const toggleBlurOnBody = () => {
+  document
+    .querySelector("body").classList
+    .toggle("blocked");
+};
 
 export default Modal;
