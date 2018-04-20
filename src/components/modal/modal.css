@@ -20,7 +20,7 @@
 .Modal-wrapper {
 	max-width:550px;
 	transition:0.4s all ease;
-	padding:0 15px;
+	padding:80px 15px;
   display:flex;
 	align-items:flex-start;
 	justify-content:flex-start;

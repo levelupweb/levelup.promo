@@ -14,8 +14,8 @@ form.fluid {
 	margin-bottom:5px;
 	position:absolute;
 	left:0px;
+	pointer-events:none;
 	top:9px;
-	z-index:1;
 	transition:0.2s all ease;
 	text-align:left;
 }
