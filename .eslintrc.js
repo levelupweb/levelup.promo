@@ -1,36 +1,36 @@
 module.exports = {
   "extends": "airbnb",
   "env": {
-    "browser": true,
+    "node": true,
     "es6": true
   },
   "parserOptions": {
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
+      "experimentalObjectRestSpread": true
     },
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
   "rules": {
-    "react/jsx-indent": 0,
-    "indent": 0,
-    "no-tabs": 0,
     "no-use-before-define": 0,
     "no-shadow": 0,
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_id"
+        ]
+      }
+    ],
     "arrow-parens": 0,
-    "jsx-a11y/href-no-hash": 0,
     "no-console": 0,
     "no-else-return": 0,
-    "react/jsx-filename-extension": 0,
+    "no-tabs": 0,
     "comma-dangle": 0,
     "global-require": 0,
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
+    "indent": 1,
+    "no-unederscore-dangle": 0,
+    "import/prefer-default-export": 0,
+    "linebreak-style": 0,
     "quotes": [
       "error",
       "double"
@@ -38,6 +38,7 @@ module.exports = {
     "semi": [
       "error",
       "always"
-    ]
+    ],
+    "import/first": 0,
   }
-};
+}

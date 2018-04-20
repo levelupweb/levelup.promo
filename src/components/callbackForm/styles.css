@@ -7,3 +7,7 @@
 .callback-form ul {
   text-align: left;
 }
+
+.callback-errors {
+  margin-bottom:30px;
+}

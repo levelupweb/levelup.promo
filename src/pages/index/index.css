@@ -53,6 +53,23 @@
 	align-items: center;
 	justify-content: center;
 }
+
+@media screen and (max-width:700px) {
+	.jumbotron-actions {
+		display:flex;
+		flex-direction:column;
+	}
+
+	.jumbotron-actions > *,
+	.jumbotron-actions .button {
+		width:100%;
+	}
+
+	.socials {
+		margin-bottom:10px;
+		display:block!important;
+	}
+}
 .jumbotron-actions > * {
 	margin:5px;
 }

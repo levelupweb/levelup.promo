@@ -1,90 +1,109 @@
 import React from "react";
-import Field from "../field/Field";
+import Field from "../field";
 import validation from "./validation";
 import Mail from "../../services/mail";
 import generateHtml from "./template";
 import "./styles.css";
 
-const displayErrors = errors => {
-  if (!errors.length) return null;
-  return (<ul>{errors.map((item, i) => (<li key={i}>{item}</li>))}</ul>);
-};
-
-const defaultData = {
-  "Контактный телефон": null,
-  Имя: null,
-  Сообщение: null,
-};
+const getDefaultData = () => new Map();
 
 class CallbackForm extends React.Component {
   constructor(props) {
     super(props);
+    this.mailSender = null;
     this.updateData = this.updateData.bind(this);
     this.submitForm = this.submitForm.bind(this);
-    this.mail = new Mail("Заявка на обратный звонок");
+    this.handleSuccess = this.handleSuccess.bind(this);
+
     this.state = {
-      data: defaultData,
+      data: getDefaultData(),
       errors: [],
     };
   }
 
+  componentDidMount() {
+    this.mailSender = new Mail("Заявка на обратный звонок");
+  }
+
+  getFieldValue(field) {
+    const { data } = this.state;
+
+    if (data.has(field)) {
+      return this.state.data.get(field);
+    }
+
+    return "";
+  }
+
   updateData(field, value) {
     this.setState(state => ({
-      data: {
-        ...state.data,
-        [field]: value,
-      }
+      data: state.data.set(field, value)
     }));
   }
 
+  handleSuccess() {
+    this.setState({ data: getDefaultData() });
+  }
 
   submitForm() {
-		const { data } = this.state;
+    const { data } = this.state;
 
     const errors = validation(data);
     if (!errors.length) {
-      return this.mail.dispatchSend(generateHtml(data))
-        .then(() => this.setState({ data: defaultData }))
-        .catch((err) => console.log(err));
+      // send axios request to mail server if we don't have errors
+      return this.mailSender
+        .dispatchSend(generateHtml(data))
+        .then(this.handleSuccess);
     }
+    // if we have client-side validation errors
     return this.setState({
       errors,
     });
-	}
+  }
 
-  render() {
-    const {
-      data,
-      errors
-    } = this.state;
+  renderError() {
+    const { errors } = this.state;
+
+    if (errors.length === 0) {
+      return null;
+    }
 
     return (
-      <div className="callback-form">
-        {displayErrors(errors)}
+      <ul className="callback-errors">
+        {errors.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  render() {
+    return (
+      <div className="callback-form inverted">
+        {this.renderError()}
         <Field
           fieldName="Контактный телефон"
           onInput={this.updateData}
-          defaultValue={data["Контактный телефон"]}
+          defaultValue={() => this.getFieldValue("Контактный телефон")}
           title="Контактный телефон"
         />
         <Field
           fieldName="Имя"
           onInput={this.updateData}
-          defaultValue={data["Имя"]}
+          defaultValue={() => this.getFieldValue("Имя")}
           title="Как к вам обращаться?"
         />
         <Field
           fieldName="Сообщение"
           type="textarea"
           onInput={this.updateData}
-          defaultValue={data["Сообщение"]}
+          defaultValue={() => this.getFieldValue("Сообщение")}
           title="Дополнительное сообщение"
         />
-
         <button
           onClick={this.submitForm}
           type="submit"
-          className="button"
+          className="button ghost"
         >
           Отправить
         </button>

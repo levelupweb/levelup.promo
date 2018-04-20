@@ -17,12 +17,16 @@ form.fluid {
 	top:9px;
 	z-index:1;
 	transition:0.2s all ease;
+	text-align:left;
+}
+.field input {
+	height:45px;
 }
 .field input,
 .field textarea {
 	border:0px;
 	border-bottom:1px solid #c0c0c0;
-	padding:10px 0px;
+	padding:0;
 	font-size:15px;
 	background:transparent;
 	z-index:999;
