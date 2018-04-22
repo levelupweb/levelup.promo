@@ -1,7 +1,8 @@
 import React from "react";
 import Field from "../field";
 import validation from "./validation";
-import Mail from "../../services/mail";
+import sendmail from "../../services/mail";
+import config from "../../utils/config";
 import generateHtml from "./template";
 import "./styles.css";
 
@@ -10,7 +11,6 @@ const getDefaultData = () => new Map();
 class CallbackForm extends React.Component {
   constructor(props) {
     super(props);
-    this.mailSender = null;
     this.updateData = this.updateData.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
@@ -19,10 +19,6 @@ class CallbackForm extends React.Component {
       data: getDefaultData(),
       errors: [],
     };
-  }
-
-  componentDidMount() {
-    this.mailSender = new Mail("Заявка на обратный звонок");
   }
 
   getFieldValue(field) {
@@ -51,8 +47,7 @@ class CallbackForm extends React.Component {
     const errors = validation(data);
     if (!errors.length) {
       // send axios request to mail server if we don't have errors
-      return this.mailSender
-        .dispatchSend(generateHtml(data))
+      return sendmail(data, config.contactposturl)
         .then(this.handleSuccess);
     }
     // if we have client-side validation errors

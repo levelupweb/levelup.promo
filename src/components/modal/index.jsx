@@ -7,7 +7,7 @@ class Modal extends Component {
     this.reveal = this.reveal.bind(this);
 
     this.state = {
-      isRevealed: false
+      isRevealed: false,
     };
   }
 
@@ -18,40 +18,46 @@ class Modal extends Component {
   }
 
   render() {
-    const { isRevealed, } = this.state;
+    const { isRevealed } = this.state;
 
     const {
       render,
-      options
+      options,
+      children,
     } = this.props;
 
     const {
+      content,
       title,
       description,
     } = options;
 
     return (
       <div>
-        <div className={isRevealed ? "Modal open" : "Modal"}>
-          <div className="Modal-wrapper inverted">
-            <div className="Modal-closer">
+        <div className={isRevealed ? "modal open" : "modal"}>
+          <div className="modal-wrapper inverted">
+            <div className="modal-closer">
               <button className="button ghost" onClick={this.reveal}>Закрыть</button>
             </div>
-            <div className="Modal-title">
+            <div className="modal-title">
               <div className="block">
-                <h1>{title}</h1>
-                <p className="primary">{description}</p>
+                <h1>{title} <small>{description}</small></h1>
               </div>
             </div>
-            <div className="Modal-content">
+            <div className="modal-content">
               <div className="block">
-                {React.createElement(render)}
+                <p>{content}</p>
+              </div>
+              <div className="block">
+                {render}
               </div>
             </div>
           </div>
         </div>
         <span>
-          {React.cloneElement(this.props.children, { onClick: this.reveal })}
+          {React.cloneElement(children, {
+            onClick: this.reveal,
+          })}
         </span>
       </div>
     );

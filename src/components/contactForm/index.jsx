@@ -1,121 +1,171 @@
 import React from "react";
+import "react-notifications/lib/notifications.css";
+import PropTypes from "prop-types";
 import Field from "../field";
-import validation from "./validation";
-import Mail from "../../services/mail";
-import generateHtml from "./template";
+import sendemail from "../../services/mail";
 import "./styles.css";
 
-const getDefaultData = () => new Map();
+const renderField = onUpdate => (field, i) => (
+  <Field
+    key={i}
+    fieldName={field.fieldName}
+    onInput={newValue => onUpdate(field.name, newValue)}
+    placeholder={field.placeholder}
+    name={field.name}
+    type={field.type}
+    hidden={field.hidden || false}
+  />
+);
 
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
-    this.updateData = this.updateData.bind(this);
-    this.submitForm = this.submitForm.bind(this);
+
+    const values = props.getDefaultValues();
+
+    this.updateForm = this.updateForm.bind(this);
+    this.submit = this.submit.bind(this);
+    this.bindFormDefaults = this.bindFormDefaults.bind(this);
+    this.renderFields = this.renderFields.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.handleFormRef = this.handleFormRef.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
-    this.mailSender = null;
+    this.handleValidationErrors = this.handleValidationErrors.bind(this);
 
     this.state = {
-      data: getDefaultData(),
+      message: { ...values },
       errors: [],
+      error: null,
     };
   }
 
   componentDidMount() {
-    this.mailSender = new Mail("Новая заявка из контактной формы");
+    this.bindFormDefaults();
   }
 
-  getFieldValue(field) {
-    const { data } = this.state;
-
-    return data.get(field);
+  handleFormRef(e) {
+    this.form = e;
   }
 
-  updateData(field, value) {
-    this.setState(state => ({
-      data: state.data.set(field, value)
-    }));
+  handleError(error) {
+    if (error.response) {
+      if (error.response.status === 422) {
+        return this.handleValidationErrors(Object
+          .values(error.response.data.errors)
+          .map(err => err.msg));
+      }
+      return this.setState({ error: "Сервер вернул непредвиденную ошибку. Попробуйте позже" });
+    }
+    return this.setState({ error: "Не удалось соединиться с сервером" });
   }
 
   handleSuccess() {
-    this.setState({ data: getDefaultData() });
+    this.setState({ message: {} }, () => this.form.reset());
   }
 
-  submitForm() {
-    const { data } = this.state;
+  handleValidationErrors(errors) {
+    this.setState({ errors });
+  }
 
-    const errors = validation(data);
-    if (!errors.length) {
-      // send axios request to mail server if we don't have errors
-      return this.mailSender
-        .dispatchSend(generateHtml(data))
-        .then(this.handleSuccess);
-    }
-    // if we have client-side validation errors
-    return this.setState({
-      errors,
+  bindFormDefaults() {
+    this.form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      return false;
     });
   }
 
-  renderError() {
-    const { errors } = this.state;
+  updateForm(fieldName, value) {
+    this.setState(state => ({
+      message: {
+        ...state.message,
+        [fieldName]: value,
+      },
+    }));
+  }
 
-    if (errors.length === 0) {
-      return null;
+  submit() {
+    this.setState({
+      error: null,
+      errors: [],
+    }, () => sendemail(this.state.message, this.props.url)
+      .then(this.handleSuccess)
+      .catch(this.handleError));
+  }
+
+  renderErrors() {
+    const { errors, error } = this.state;
+
+    if (error) {
+      return (
+        <div style={{ paddingLeft: "20px" }} className="contact-form-error">
+          {error}
+        </div>
+      );
     }
 
+    if (errors.length > 0) {
+      return (
+        <ul className="contact-form-errors">
+          {errors.map(err => (
+            <li className="contact-form-errors-single" key={err}>
+              {err}
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+    return null;
+  }
+
+  renderFields() {
+    const { fields } = this.props;
+
+    return fields.map(renderField(this.updateForm));
+  }
+
+  renderSubmit() {
     return (
-      <ul className="contact-form-errors">
-        {errors.map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-      </ul>
+      <button
+        className="button ghost"
+        onClick={this.submit}
+      >
+        Отправить
+      </button>
     );
   }
 
   render() {
-    return (
-      <div className="contact-form">
-        {this.renderError()}
-        <Field
-          fieldName="Имя"
-          onInput={this.updateData}
-          title="Как к вам обращаться?"
-          defaultValue={() => this.getFieldValue("Имя")}
-          type="text"
-        />
-        <Field
-          fieldName="E-mail"
-          onInput={this.updateData}
-          title="Здесь e-mail"
-          defaultValue={() => this.getFieldValue("E-mail")}
-          type="text"
-        />
-        <Field
-          fieldName="Контактный телефон"
-          onInput={this.updateData}
-          title="Здесь ваш мобильный (+7)"
-          defaultValue={() => this.getFieldValue("Контактный телефон")}
-          type="text"
-        />
-        <Field
-          fieldName="Сообщение"
-          onInput={this.updateData}
-          title="Дополнительное сообщение.. (не обязательно)"
-          defaultValue={() => this.getFieldValue("Сообщение")}
-          type="textarea"
-        />
+    const { isFluid } = this.props;
 
-        <button
-          onClick={this.submitForm}
-          type="submit"
-          className="button"
-        >
-          Отправить
-        </button>
-      </div>
+    return (
+      <form
+        className={isFluid && "fluid"}
+        ref={this.handleFormRef}
+      >
+        {this.renderErrors()}
+        {this.renderFields()}
+        {this.renderSubmit()}
+      </form>
     );
   }
 }
+
+ContactForm.defaultProps = {
+  isFluid: false,
+  fields: [],
+  getDefaultValues: () => ({}),
+};
+
+ContactForm.propTypes = {
+  isFluid: PropTypes.bool,
+  getDefaultValues: PropTypes.func,
+  url: PropTypes.string.isRequired,
+  fields: PropTypes.arrayOf(PropTypes.shape({
+    placeholder: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+  })),
+};
 
 export default ContactForm;

@@ -1,12 +1,14 @@
-.contact-form input,
-.contact-form textarea {
-  width:100%;
+.fluid {
+	width:100%;
+}
+.fluid input {
+	width:100%;
 }
 
-.contact-form ul {
-  text-align: left;
-}
-
+.contact-form-error, 
 .contact-form-errors {
-  margin-bottom:30px;
+  text-align: left;
+	margin:20px 0;
+	border-left: 4px solid red;
+  border-color: #8c2929!important;
 }

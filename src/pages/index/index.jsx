@@ -1,17 +1,27 @@
 import React from "react";
-import scrollreveal from "scrollreveal";
-import smoothScroll from "smoothscroll";
 import "react-notifications/lib/notifications.css";
 import Modal from "../../components/modal";
-import CallbackForm from "../../components/callbackForm";
-import CheckPrice from "../../components/checkPrice";
+import config from "../../utils/config";
+// import CallbackForm from "../../components/callbackForm";
+// import CheckPrice from "../../components/checkPrice";
 import ContactForm from "../../components/contactForm";
 import "./index.css";
 
 class Index extends React.Component {
   componentDidMount() {
+    const scrollreveal = require("scrollreveal");
     initScrollReveal(scrollreveal());
-    bindSmoothScrolling();
+    this.bindSmoothScrolling();
+  }
+
+  bindSmoothScrolling() {
+    const smoothScroll = require("smoothScroll");
+    const links = document.querySelectorAll("[data-scrollTo]");
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        smoothScroll(document.querySelector(e.target.dataset.scrollto));
+      });
+    });
   }
 
   render() {
@@ -19,11 +29,11 @@ class Index extends React.Component {
       <div className="Index-page page">
         <section className="fullpage center text first">
           <div className="section-background">
-            <img alt="Levelup SMM - продвижение в социальных сетях" src="/img/wallpaper.jpg" width="100%" />
+            <img alt="Levelup SMM - продвижение в социальных сетях" src={`${config.static}/img/wallpaper.jpg`} width="100%" />
           </div>
           <div className="container">
             <div className="logo">
-              <img src="img/basic-inverted-full-128x128.png" alt="Levelup SMM" />
+              <img src={`${config.static}/img/basic-inverted-full-128x128.png`} alt="Levelup SMM" />
             </div>
             <div className="jumbotron inverted">
               <div className="jumbotron-title">
@@ -56,21 +66,77 @@ class Index extends React.Component {
               <div className="jumbotron-actions">
                 <Modal
                   options={{
-										title: "Бесплатная консультация",
-										description: "Заполните форму,чтобы наш менеджер мог с вами легко связаться для получения дальнейших бесплатных консультаций"
-									}}
-                  render={() =>
-                    <CallbackForm />
-									}
+                    title: "Бесплатная консультация",
+                    description: "Форма",
+                    content: "Заполните форму, чтобы наш менеджер мог с вами легко связаться для получения дальнейших бесплатных консультаций"
+                  }}
+                  render={(
+                    <ContactForm
+                      getDefaultValues={() => ({ title: "Бесплатная консультация" })}
+                      url={config.contactposturl}
+                      fields={[
+                        {
+                          placeholder: "Ваше имя",
+                          name: "name",
+                          type: "text",
+                        },
+                        {
+                          placeholder: "Ваш E-Mail",
+                          name: "email",
+                          type: "text",
+                        },
+                        {
+                          placeholder: "Контактный телефон",
+                          name: "phone",
+                          type: "text",
+                        },
+                        {
+                          placeholder: "Ваше сообщение",
+                          name: "message",
+                          type: "textarea",
+                        },
+                      ]}
+                      isFluid
+                    />
+                  )}
                 >
                   <button className="button ghost">Получить консультацию</button>
                 </Modal>
                 <Modal
                   options={{
-										title: "Рассчитать стоимость",
-										description: "Заполните форму,чтобы наш менеджер мог с вами легко связаться для получения дальнейших бесплатных консультаций"
+                    title: "Рассчитать стоимость",
+                    description: "Калькулятор",
+										content: "Заполните форму,чтобы наш менеджер мог с вами легко связаться для получения дальнейших бесплатных консультаций"
 									}}
-                  render={() => <CheckPrice />}
+                  render={(
+                    <ContactForm
+                      getDefaultValues={() => ({ title: "Узнать стоимость" })}
+                      url={config.contactposturl}
+                      fields={[
+                        {
+                          placeholder: "Ваше имя",
+                          name: "name",
+                          type: "text",
+                        },
+                        {
+                          placeholder: "Ваш E-Mail",
+                          name: "email",
+                          type: "text",
+                        },
+                        {
+                          placeholder: "Контактный телефон",
+                          name: "phone",
+                          type: "text",
+                        },
+                        {
+                          placeholder: "Опишите работы, стоимость которых необходимо расчитать",
+                          name: "message",
+                          type: "textarea",
+                        },
+                      ]}
+                      isFluid
+                    />
+                  )}
                 >
 
                   <button className="button ghost">Узнать стоимость</button>
@@ -88,22 +154,22 @@ class Index extends React.Component {
             <div className="section-content">
               <div className="intro-example">
                 <div className="item">
-                  <img src="img/shopping-cart.png" alt="Корзина" />
+                  <img src={`${config.static}/img/shopping-cart.png`} alt="Корзина" />
                   <h4>1. Покупка</h4>
                   <p>Клиент знакомится с брендом и совершает покупку</p>
                 </div>
                 <div className="item">
-                  <img src="img/like.png" alt="Корзина" />
+                  <img src={`${config.static}/img/like.png`} alt="Корзина" />
                   <h4>2. Подписка</h4>
                   <p>Клиент "следит" за вашим брендом и проявляет активность</p>
                 </div>
                 <div className="item">
-                  <img src="img/network.png" alt="Сеть" />
+                  <img src={`${config.static}/img/network.png`} alt="Сеть" />
                   <h4>3. Новые клиенты</h4>
                   <p>Клиент рассказывает о вашем бренде своим друзьям</p>
                 </div>
                 <div className="item">
-                  <img src="img/arrow.png" alt="Корзина" />
+                  <img src={`${config.static}/img/arrow.png`} alt="Корзина" />
                   <h4>4. Прибыль</h4>
                   <p>Благодаря новым вовлечениям вы получаете больше прибыли</p>
                 </div>
@@ -158,7 +224,7 @@ class Index extends React.Component {
               <div className="advantages">
                 <div className="advantage">
                   <div className="advantage-image">
-                    <img src="img/team.png" alt="Команда" />
+                    <img src={`${config.static}/img/team.png`} alt="Команда" />
                   </div>
                   <div className="advantage-content">
                     <h6 className="advantage-title super">
@@ -183,7 +249,7 @@ class Index extends React.Component {
                 </div>
                 <div className="advantage">
                   <div className="advantage-image">
-                    <img src="img/startup.png" alt="Опыт" />
+                    <img src={`${config.static}/img/startup.png`} alt="Опыт" />
                   </div>
                   <h6 className="advantage-title super">
 										Наша команда имеет большой опыт работы в сфере продвижения
@@ -198,7 +264,7 @@ class Index extends React.Component {
                 </div>
                 <div className="advantage">
                   <div className="advantage-image">
-                    <img src="img/money.png" alt="Деньги" />
+                    <img src={`${config.static}/img/money.png`} alt="Деньги" />
                   </div>
                   <h6 className="advantage-title super">
 										Отдать ваши социальные сети в наши руки выйдет дешевле, чем найти штатного работника!
@@ -212,7 +278,7 @@ class Index extends React.Component {
                 </div>
                 <div className="advantage">
                   <div className="advantage-image">
-                    <img src="img/camera.png" alt="Камера" />
+                    <img src={`${config.static}/img/camera.png`} alt="Камера" />
                   </div>
                   <h6 className="advantage-title super">
 										Мы имеем все ресурсы для того, чтобы создавать мультиформатный контент!
@@ -239,19 +305,19 @@ class Index extends React.Component {
             <div className="section-content">
               <div className="list horizontal">
                 <div className="item">
-                  <img src="img/edit.png" alt="Текст" />
+                  <img src={`${config.static}/img/edit.png`} alt="Текст" />
                   <h4>Текст</h4>
                 </div>
                 <div className="item">
-                  <img src="img/video-player.png" alt="Видео" />
+                  <img src={`${config.static}/img/video-player.png`} alt="Видео" />
                   <h4>Видео</h4>
                 </div>
                 <div className="item">
-                  <img src="img/photo-camera.png" alt="Фото" />
+                  <img src={`${config.static}/img/photo-camera.png`} alt="Фото" />
                   <h4>Фото</h4>
                 </div>
                 <div className="item">
-                  <img src="img/musical-note.png" alt="Музыка" />
+                  <img src={`${config.static}/img/musical-note.png`} alt="Музыка" />
                   <h4>Музыка</h4>
                 </div>
               </div>
@@ -271,7 +337,7 @@ class Index extends React.Component {
             <div className="section-content">
               <p className="primary">Если сравнивать SMM со стандартными методами продвижения, стратегия продвижения в социальных сетях выигрывает в 3-4 раза!</p>
               <div className="graph">
-                <img src="/img/graph.png" alt="SMM Levelup - продвижение в социальных сетях" width="100%" />
+                <img src={`${config.static}/img/graph.png`} alt="SMM Levelup - продвижение в социальных сетях" width="100%" />
                 <div className="x-axis">Продолжительность кампании</div>
                 <div className="y-axis">Вирусный прирост</div>
               </div>
@@ -288,17 +354,17 @@ class Index extends React.Component {
               <p className="primary">Мероприятия по раскрутке и внедрению бренда - лишь подготовительная часть для совершения реальных продаж и получения прибыли</p>
               <div className="intro-example three">
                 <div className="item">
-                  <img src="img/feedback.png" alt="Фидбэк" />
+                  <img src={`${config.static}/img/feedback.png`} alt="Фидбэк" />
                   <h4>Обратная связь</h4>
                   <p>Обеспечьте постоянную обратную связь между вашим брендом и клиентом</p>
                 </div>
                 <div className="item">
-                  <img src="img/wind.png" alt="Негатив" />
+                  <img src={`${config.static}/img/wind.png`} alt="Негатив" />
                   <h4>Работа с негативом</h4>
                   <p>Слушайте своих клиентов и анализируйте данные для увелечения прибыли!</p>
                 </div>
                 <div className="item">
-                  <img src="img/network.png" alt="Сеть" />
+                  <img src={`${config.static}/img/network.png`} alt="Сеть" />
                   <h4>Глубокое вовлечение</h4>
                   <p>Дайте вашим клиентам стать частью вашего бренда и получите материальную отдачу</p>
                 </div>
@@ -421,7 +487,7 @@ class Index extends React.Component {
               <div className="positions">
                 <div className="position">
                   <div className="position-header">
-                    <img src="img/odnoklassniki-logo.png" alt="Одноклассники" />
+                    <img src={`${config.static}/img/odnoklassniki-logo.png`} alt="Одноклассники" />
                     <h4 className="super position-price">8 900 р.</h4>
                   </div>
                   <div className="position-content">
@@ -432,7 +498,7 @@ class Index extends React.Component {
                 </div>
                 <div className="position">
                   <div className="position-header">
-                    <img src="img/telegram-logo.png" alt="Телеграм" />
+                    <img src={`${config.static}/img/telegram-logo.png`} alt="Телеграм" />
                     <h4 className="super position-price">10 900 р.</h4>
                   </div>
                   <div className="position-content">
@@ -499,7 +565,33 @@ class Index extends React.Component {
               <div className="description">Заполните форму и мы свяжемся с вами в ближайшее время</div>
             </div>
             <div className="section-content">
-              <ContactForm />
+              <ContactForm
+                getDefaultValues={() => ({ title: "Работать вместе" })}
+                url={config.contactposturl}
+                fields={[
+                  {
+                    placeholder: "Ваше имя",
+                    name: "name",
+                    type: "text",
+                  },
+                  {
+                    placeholder: "Ваш E-Mail",
+                    name: "email",
+                    type: "text",
+                  },
+                  {
+                    placeholder: "Контактный телефон",
+                    name: "phone",
+                    type: "text",
+                  },
+                  {
+                    placeholder: "Опишите какой род услуг вам необходимо предоставить",
+                    name: "message",
+                    type: "textarea",
+                  },
+                ]}
+                isFluid
+              />
               <br />
               <p className="primary">После отправки сообщения, наш менеджер свяжется с вами</p>
             </div>
@@ -603,13 +695,5 @@ const initScrollReveal = (sr) => {
   });
 };
 
-const bindSmoothScrolling = () => {
-  const links = document.querySelectorAll("[data-scrollTo]");
-  links.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      smoothScroll(document.querySelector(e.target.dataset.scrollto));
-    });
-  });
-};
 
 export default Index;
