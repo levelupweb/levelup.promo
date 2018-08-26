@@ -8,7 +8,7 @@ module.exports = {
     filename: "bundle.js"
   },
   module: {
-  	loaders: [
+  	rules: [
   	  {
   	    loader: "babel-loader",
   	    include: [
@@ -28,10 +28,15 @@ module.exports = {
         ]
     	},
     	{
-    		test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-        loader: "file-loader"
-      }
-  	  ]
+    		test: /\.(ttf|eot|svg|woff)$/,
+       		use : [
+			{
+				loader: "file-loader",
+				options: {},
+			}
+		]
+      	}
+  ]
   },
   resolve: {
     extensions: [".js", ".jsx"]
