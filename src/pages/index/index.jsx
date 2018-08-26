@@ -44,12 +44,12 @@ class Index extends React.Component {
                     </a>
                   </div>
                   <div className="social instagram">
-                    <a rel="noopener noreferrer" href="https://www.instagram.com/levelup.smm/" target="_blank">
+                    <a rel="noopener noreferrer" href="https://www.instagram.com/smm.levelup" target="_blank">
                       <i className="fa fa-instagram" />
                     </a>
                   </div>
                   <div className="social facebook">
-                    <a rel="noopener noreferrer" href="https://www.facebook.com/Levelup-SMM-1646742608710216/" target="_blank">
+                    <a rel="noopener noreferrer" href="https://www.facebook.com/levelupsmm" target="_blank">
                       <i className="fa fa-facebook" />
                     </a>
                   </div>
