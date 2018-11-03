@@ -1,10 +1,11 @@
 const dev = process.env.DEV === "true";
 const port = process.env.PORT;
-const domain = `http://${dev ? `localhost:${port}` : process.env.URL}`;
+const type = dev ? "http://" : "https://";
+const domain = `${type}${dev ? `localhost:${port}` : process.env.URL}`;
 const staticfolder = "/public";
 const staticaddr = domain + staticfolder;
 const host = dev ? "127.0.0.1" : process.env.IP;
-const hosturl = `http://${host}`;
+const hosturl = `${type}${host}`;
 const sender = process.env.SENDER;
 const receiever = process.env.RECEIEVER;
 const smtpuser = process.env.SMTP_LOGIN;
