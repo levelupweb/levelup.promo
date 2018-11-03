@@ -1,14 +1,23 @@
 .fluid {
-	width:100%;
+  width: 100%;
 }
 .fluid input {
-	width:100%;
+  width: 100%;
 }
 
-.contact-form-error, 
+.contact-form-error,
 .contact-form-errors {
   text-align: left;
-	margin:20px 0;
-	border-left: 4px solid red;
-  border-color: #8c2929!important;
+  margin: 20px 0;
+  border-left: 4px solid red;
+  border-color: #8c2929 !important;
+}
+
+.disclaimer a {
+  color: grey;
+  text-decoration: underline;
+}
+
+.disclaimer a:after {
+  display: none;
 }

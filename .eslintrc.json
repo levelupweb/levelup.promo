@@ -1,0 +1,54 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true,
+    "browser": true
+  },
+  "globals": {
+    "window": true,
+    "document": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-use-before-define": 0,
+    "no-shadow": 0,
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": ["_id"]
+      }
+    ],
+    "jsx-a11y/href-no-hash": 0,
+    "arrow-parens": 0,
+    "no-console": 0,
+    "no-else-return": 0,
+    "no-tabs": 0,
+    "comma-dangle": 0,
+    "global-require": 0,
+    "indent": ["error", "tab"],
+    "no-unederscore-dangle": 0,
+    "import/prefer-default-export": 0,
+    "linebreak-style": 0,
+    "react/jsx-indent": [1, "tab"],
+    "react/jsx-indent-props": [1, "tab"],
+    "experimentalDecorators": true,
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "import/first": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "no-nested-ternary": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "react/no-did-mount-set-state": 0,
+    "react/no-did-update-set-state": 0,
+    "react/forbid-prop-types": 0
+  }
+}

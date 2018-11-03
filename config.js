@@ -1,12 +1,10 @@
 const dev = process.env.DEV === "true";
-const ssl = process.env.SSL === "true";
 const port = process.env.PORT;
-const type = ssl ? "https://" : "http://";
-const domain = type + (dev ? (`localhost:${port}`) : process.env.URL);
+const domain = `http://${dev ? `localhost:${port}` : process.env.URL}`;
 const staticfolder = "/public";
 const staticaddr = domain + staticfolder;
 const host = dev ? "127.0.0.1" : process.env.IP;
-const hosturl = type + host;
+const hosturl = `http://${host}`;
 const sender = process.env.SENDER;
 const receiever = process.env.RECEIEVER;
 const smtpuser = process.env.SMTP_LOGIN;
@@ -17,7 +15,6 @@ const contactposturl = "/email/contact";
 
 module.exports.server = {
   dev,
-  ssl,
   port,
   domain,
   static: staticfolder,
@@ -28,18 +25,16 @@ module.exports.server = {
   contactposturl,
   mail: {
     sender,
-    receiever,
-  },
+    receiever
+  }
 };
 
 module.exports.client = {
   dev,
-  ssl,
   port,
   emailurl,
   contactposturl,
   domain,
   static: staticaddr,
-  hosturl,
+  hosturl
 };
-

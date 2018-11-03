@@ -2,9 +2,8 @@ const config = require("./config");
 
 const dist = config.client.static;
 
-
-const document = (html) =>
-  `<!DOCTYPE html>
+const document = () =>
+	`<!DOCTYPE html>
   <html lang="ru">
   <head>
     <meta charset="utf-8" />
@@ -40,7 +39,7 @@ const document = (html) =>
   </head>
   <body>
     <noscript>
-      ${html}
+      Для работы данной страницы вам необходимо включить Javascript
     </noscript>
     <div id="root"></div>
     <script>window.global = ${JSON.stringify(config.client)};</script>
@@ -49,4 +48,3 @@ const document = (html) =>
 </html>
 `;
 module.exports = document;
-
